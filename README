@@ -1,6 +1,6 @@
 #Downtime
-An application for logging and viewing downtime at MAX IV.
+An application for logging plotting and viewing downtime at MAX IV.
 
-Starts an Express server for logging downtime
+Starts an Express server for logging downtime.
 
 data is stored using mongo db.
