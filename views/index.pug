@@ -1,0 +1,497 @@
+extends layout
+
+
+block content
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+  .container
+    style.
+      * {
+        box-sizing: border-box;
+        }
+        /* Create two equal columns that floats next to each other */
+        .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 630px; /* Should be removed. Only for demonstration */
+        }
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+      body
+    <br>
+    center
+      h2(align='center') Downtime Index
+      <br>
+      .row
+          .column(style="width:28%")
+            h4 Toggle machines
+            |
+            table#buttontable.display(style='width:100%')
+              tbody
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#66ccff;color: white;border: 5px solid #2ECC71;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_machine(id)')#I_button SPF
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_machine(id)')#R1_button R1
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1,onclick='click_machine(id)')#R3_button R3
+            |
+            h4 Toggle event codes
+            |
+            table#codetable.display(style='width:100%')
+              tbody
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#66ccff;color: white;border: 5px solid #2ECC71;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 14px;',value=1, onclick='click_code(id)')#Allcodes_button Toggle all
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#Bcode_button B
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#CTcode_button CT
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#DIAcode_button DIA
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#HEcode_button HE
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#Icode_button I
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#IDcode_button ID
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#INFcode_button INF
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#MAGcode_button MAG
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#MMLcode_button MML
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#MPScode_button MPS
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#NETcode_button NET
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#OIcode_button OI
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#OTcode_button OT
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#PLCcode_button PLC
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#PSScode_button PSS
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#RFcode_button RF
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#UIcode_button UI
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1,onclick='click_code(id)')#VACcode_button VAC
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_code(id)')#WATcode_button WAT
+                tr
+                  td
+                    center
+                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;', value=1, onclick='click_code(id)')#WDcode_button WD
+          |   
+          .column(style="width:72%")
+            h4 Downtime distribution
+            |     
+            #container(style='min-width: 300px; height: 500px; max-width: 800px; margin: 0 auto')
+
+    //##############################################
+    //Machine selection button logic
+    //##############################################
+    script.
+      function click_machine(id) {
+      machinebutton_array=['I_button', 'R1_button','R3_button']
+      //If button is off then a click turns it on
+      if( document.getElementById(id).value == 0){
+        document.getElementById(id).value = 1;
+        document.getElementById(id).style.background = "#2ECC71";
+        if (id=='All_button'){
+          document.getElementById(id).style.background = "#66ccff";
+          for (var i = 0; i < machinebutton_array.length; i++) {
+            document.getElementById(machinebutton_array[i]).value = 1;
+            document.getElementById(machinebutton_array[i]).style.background = "#2ECC71";
+          }
+        }
+      }
+      else{
+        document.getElementById(id).value = 0;
+        document.getElementById(id).style.background = "#ffb84d";
+        if (id=='All_button'){
+          document.getElementById(id).style.background = "#66ccff";
+          for (var i = 0; i < machinebutton_array.length; i++) {
+            document.getElementById(machinebutton_array[i]).value = 0;
+            document.getElementById(machinebutton_array[i]).style.background = "#ffb84d";
+          }
+        }
+      }
+      var table = $('#example').DataTable();
+      table.draw()
+      chart.series[0].setData(plotdata);
+      chart.redraw();
+      }
+    <br>
+    //##############################################
+    //Code selection button logic
+    //##############################################
+    style.
+      #codetable {
+      border-collapse: separate;
+      border-spacing: 10px;
+      }
+   
+    script.
+      function click_code(id) {
+      codebutton_array=['Bcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button','WDcode_button']
+      //If button is off then a click turns it on
+        if( document.getElementById(id).value == 0){
+          document.getElementById(id).value = 1;
+          document.getElementById(id).style.background = "#2ECC71";
+          if (id=='Allcodes_button'){
+            document.getElementById(id).style.background = "#66ccff";
+            for (var i = 0; i < codebutton_array.length; i++) {
+              document.getElementById(codebutton_array[i]).value = 1;
+              document.getElementById(codebutton_array[i]).style.background = "#2ECC71";
+            }
+          }
+        }
+        else{
+          document.getElementById(id).value = 0;
+          document.getElementById(id).style.background = "#ffb84d";
+          if (id=='Allcodes_button'){
+            document.getElementById(id).style.background = "#66ccff";
+            for (var i = 0; i < codebutton_array.length; i++) {
+              document.getElementById(codebutton_array[i]).value = 0;
+              document.getElementById(codebutton_array[i]).style.background = "#ffb84d";
+            }
+          }
+        }
+        var table = $('#example').DataTable();
+        table.draw()
+        chart.series[0].setData(plotdata);
+        chart.redraw();
+      }
+
+    //##############################################
+    //Filter by range table
+    //##############################################
+    //class for the filtertable
+    style.
+      #filtertable {
+      border-collapse: separate;
+      border-spacing: 10px;
+      }
+    //the filter table
+    table(frame='hsides',style='width:100%')#filtertable
+      tbody
+        tr
+          td Min duration(h):
+          td
+            input#mindur(name='mindur', type='number', value=0, min=0, step=0.25)
+          td Min date:
+          td
+            input#mindate(name='mindate', type='date', value='2018-01-01')
+          td Min time:
+          td
+            input#mintime(name='mintime', type='string', value='00:00')
+        tr
+          td Max duration(h):
+          td
+            input#maxdur(name='maxdur', type='number',value=999, min=0, step=0.25)
+          td Max date:
+          td
+            input#maxdate(name='maxdate', type='date', value='2019-12-12')
+          td max time
+          td
+            input#maxtime(name='maxtime', type='string', value='23:59') 
+    <br>
+    <br>
+    //##############################################
+    //The downtime event table
+    //##############################################
+    center
+      h4 Downtime table
+    table#example.display(style='width:100%').compact
+      thead
+          tr
+            th(width='0') Description
+            th(width='16%') Date
+            th(width='16%') Time
+            th(width='16%') Timestamp/Link
+            th(width='16%') Code
+            th(width='16%') Machine
+            th(width='16%') Duration (hours)
+            th(width='16%') Author
+      tbody
+        each downtimeevent, i in downtimeevents
+          tr
+            td
+              a #{downtimeevent.description}
+            td
+              a #{downtimeevent.date}
+            td
+              a #{downtimeevent.time}
+            td
+              a(href="/downtimeevent/"+downtimeevent._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{downtimeevent.date}, #{downtimeevent.time}</button>
+            td
+              a #{downtimeevent.code}
+            td
+              a #{downtimeevent.machine}
+
+            td
+              a #{downtimeevent.duration}
+            td
+              a #{downtimeevent.operator}
+      tfoot
+        tr
+          th
+          th
+          th
+          th
+          th
+          th
+          th
+          th
+    <br>
+
+    //##############################################
+    //datatable and highcharts scripts
+    //##############################################
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+    //addition function for datatables
+    script.
+      jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
+      return this.flatten().reduce( function ( a, b ) {
+        if ( typeof a === 'string' ) {
+            a = a.replace(/[^\d.-]/g, '') * 1;
+        }
+        if ( typeof b === 'string' ) {
+            b = b.replace(/[^\d.-]/g, '') * 1;
+        }
+
+        return a + b;
+        }, 0 );
+      } );
+    //Highcharts dependencies
+    script(src='/bower_components/highcharts/highcharts.js')
+    script(src='/bower_components/highcharts/modules/exporting.js')
+    script(src='/bower_components/highcharts/modules/export-data.js')
+
+    //Initialize datatable
+    script.
+      $(document).ready(function() {
+        $('#example').DataTable( {
+          "order": [[ 3, "asc" ]],
+          drawCallback: function () {
+            var api = this.api();
+            total = api.column( 6, {search:'applied'} ).data().sum()
+            nrows =$('#example').DataTable().column(6, {search: 'applied'} ).data().count()
+            var mindate = new Date($('#mindate').val());
+            var maxdate = new Date($('#maxdate').val());
+            var timeDiff = maxdate.getTime() - mindate.getTime();
+            var diffHours = timeDiff/(1000*3600);
+
+
+            $( api.table().column(3).footer() ).html(
+            'Total downtime: <br>' + total + ' h'
+            );
+            $( api.table().column(4).footer() ).html(
+            'Percentage down: <br>' + Math.round(100*(total/diffHours)*100)/100 + ' %'
+            );
+            $( api.table().column(5).footer() ).html(
+            'Percentage up: <br>' + Math.round(100*((diffHours-total)/diffHours)*100)/100 + ' %'
+            );
+            $( api.table().column(6).footer() ).html(
+            'MTTR: <br>'  + Math.round(total/nrows*100)/100 + ' h'
+            );
+            $( api.table().column(7).footer() ).html(
+            'MTBF: <br>' + Math.round((diffHours-total)/nrows*100)/100 + ' h'
+            );
+
+            var code_data = $('#example').DataTable().columns(4, { filter: 'applied' } ).data()
+            var dur_data = $('#example').DataTable().columns(6, { filter: 'applied' } ).data()
+            sum_array = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
+            code_array = ["B", "CT","DIA","HE","I","ID","INF","MAG","MML","MPS","NET","OI","OT","PLC","PSS","RF","UI","VAC","WAT", "WD"];
+            for (var n = 0; n < 20; n++) {
+              for (var i = 0; i < code_data[0].length; i++) {
+                if(typeof(code_data[0][i]) != undefined){
+                  lenCode = code_data[0][i].length;
+                  eventCode = code_data[0][i].substring(3, lenCode-4);
+                  lenDur = dur_data[0][i].length;
+                  eventDur = dur_data[0][i].substring(3, lenDur-4);
+                  if (eventCode == code_array[n]){
+                    sum_array[n] += Number(eventDur)
+                    }
+                  }
+                }
+              }
+            plotdata = []
+
+            for(var i=0; i < code_array.length; i++) {
+              if (sum_array[i]!=0){
+                plotdata.push({
+                name: code_array[i],
+                y: sum_array[i]
+              });
+              }
+            }
+
+            },
+          "columnDefs": [
+            { "targets": [ 0, 1, 2 ], "visible": false},
+            { "searchable": false, "targets": 3 }
+            ]
+
+        } );
+
+
+      // Event listener to the range filtering inputs to redraw on input
+      var table = $('#example').DataTable();
+      $('#mindur, #maxdur, #mindate, #maxdate, #mintime, #maxtime').keyup( function() {
+        table.draw()
+        chart.series[0].setData(plotdata);
+        chart.redraw();
+      } );
+
+      //PieChart
+      $(function () {
+      chart = new Highcharts.Chart({
+        chart: {
+            //height: 500,
+            renderTo: 'container',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+              style: {
+                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+              }
+          }
+        }
+        },
+        series: [{
+            name: 'Downtime',
+            colorByPoint: true,
+            data: plotdata
+            }],
+
+        exporting: {
+        buttons: {
+          contextButton: {
+            menuItems: ["printChart",
+                        "separator",
+                        "downloadPNG",
+                        "downloadJPEG",
+                        "downloadPDF",
+                        "downloadSVG",
+                        "separator",
+                        "downloadCSV",
+                        "downloadXLS",
+                        //"viewData",
+                        //"openInCloud"
+                        ]
+          }
+        }
+        }
+
+        });
+
+      });
+
+
+      } );
+
+
+    script.
+      // Custom filtering function which will search data in column four between two values
+      $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+          //duration
+          var mindur = parseFloat( $('#mindur').val(), 10 );
+          var maxdur = parseFloat( $('#maxdur').val(), 10 );
+          var dur = parseFloat( data[6] ) || 0; // use data from the duration column
+
+          //date
+          var mindate = $('#mindate').val();
+          var maxdate = $('#maxdate').val();
+          //fix date format
+          var date = (data[1]) || 0; // use data from the date column
+
+          //time
+          var mintime = $('#mintime').val();
+          mintime = Number(mintime.substring(0, 2)) + Number(mintime.substring(3, 5))/60
+          var maxtime = $('#maxtime').val();
+          maxtime = Number(maxtime.substring(0, 2)) + Number(maxtime.substring(3, 5))/60
+          //fix time format
+          var T = (data[2]) || 0; // use data from the time column
+          T = Number(T.substring(0, 2)) + Number(T.substring(3, 5))/60
+
+          //Machine selcection
+          machine =(data[5]); // use data from the Machine column
+          machine_array=['I_button', 'R1_button', 'R3_button']
+          machine_selection=[]
+          for (var i = 0; i < machine_array.length; i++) {
+            if(document.getElementById(machine_array[i]).value == 1){
+              machine_selection.push(document.getElementById(machine_array[i]).id.replace('_button',''));
+              }
+            }
+
+          //code selection
+          event_code =(data[4]); // use data from the code column
+          codebutton_array=['Bcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button', 'WDcode_button']
+          code_selection = []
+          for (var i = 0; i < codebutton_array.length; i++) {
+            if(document.getElementById(codebutton_array[i]).value == 1){
+              code_selection.push(document.getElementById(codebutton_array[i]).id.replace('code_button',''));
+              }
+            }
+
+            if ( ( mindur <= dur   && dur <= maxdur ) && ( mindate <= date   && date <= maxdate) && ( mintime <= T  && T <=  maxtime ) && (code_selection.includes(event_code)) &&(machine_selection.includes(machine)) )
+              {
+              return true;
+              }
+              return false;
+
+          }
+      );

@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+  .container
+    h2(align='center') Detailed view
+    .container
+      table#detailedview.display(style='width:100%')
+        thead
+          th Parameter
+          th Value
+        tbody
+          tr
+            th date:
+            td #{downtimeevent.date}
+          tr
+            th time:
+            td #{downtimeevent.time}
+          tr
+            th Machine:
+            td #{downtimeevent.machine}
+          tr
+            th code:
+            td #{downtimeevent.code}
+          tr
+            th duration:
+            td #{downtimeevent.duration} hours
+          tr
+            th Author:
+            td #{downtimeevent.operator}
+          tr
+            th description:
+            td #{downtimeevent.description}
+          
+
+
+    hr
+    a.btn.btn-warning(href='/downtimeevent/edit/'+downtimeevent._id) Edit
+    a.btn.btn-danger.delete-downtimeevent(href='#',data-id=downtimeevent._id) Delete
+
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+  //the script below allows the deletion of events.
+  script(src='/js/main.js')
+  script.
+    $(document).ready( function () {
+    $('#detailedview').DataTable({
+    "bFilter": false,
+    "bInfo" : false,
+    "bPaginate": false,
+    "bSort" : false
+    });
+    } );
