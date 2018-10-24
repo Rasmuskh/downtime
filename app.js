@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser=require('body-parser');
 
 //Connect to operations knowledge base
-mongoose.connect('mongodb://localhost/maxivkb');
+mongoose.connect('mongodb://mongo:27017/maxivkb');
 let db = mongoose.connection;
 
 
