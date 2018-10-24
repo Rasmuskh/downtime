@@ -1,6 +1,7 @@
 #Downtime
-An application for logging, plotting and viewing downtime at MAX IV.
-
+An application for registering, plotting and viewing downtime at MAX IV.
 Starts an Express server running on port 3000
-
-data is stored using mongo db, running on port 27017
+Data is stored using mongo db, running on port 27017
+#Installation
+Deploy with docker: 
+> docker-compose up
