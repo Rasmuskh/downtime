@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser=require('body-parser');
 
 //Connect to operations knowledge base
-mongoose.connect('mongodb://localhost/maxivkb');
+mongoose.connect('mongodb://mongo:27017/maxivkb');
 let db = mongoose.connection;
 
 
@@ -15,7 +15,8 @@ db.once('open', function(){
 
 // Check for DB erros
 db.on('error', function(err){
-    console.log('err');
+    console.log('db error');
+    console.log(err);
 });
 
 // Initialize app
