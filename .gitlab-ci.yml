@@ -1,0 +1,32 @@
+before_script:
+  - docker info
+
+build_image:
+  stage: build
+  script:
+    - docker build . -t docker.maxiv.lu.se/downtime
+    - docker push docker.maxiv.lu.se/downtime
+  only:
+    - master
+
+deploy_image:
+  stage: deploy
+  script:
+  - "curl -H 'Authorization: Bearer gOj9o8s3RapHiThfNbImaFYMDoOKTG' -k --request POST https://ansible.maxiv.lu.se/api/v2/job_templates/32/launch/"
+  only:
+    - master
+
+build_image_develop:
+  stage: build
+  script:
+    - docker build . -t docker.maxiv.lu.se/downtime-test
+    - docker push docker.maxiv.lu.se/downtime-test
+  only:
+    - develop
+
+deploy_image_develop:
+  stage: deploy
+  script:
+  - "curl -H 'Authorization: Bearer gOj9o8s3RapHiThfNbImaFYMDoOKTG' -k --request POST https://ansible.maxiv.lu.se/api/v2/job_templates/33/launch/"
+  only:
+    - develop

@@ -3,8 +3,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser=require('body-parser');
 
-//Connect to operations knowledge base
-mongoose.connect('mongodb://mongo:27017/maxivkb');
+
+const dbURL =  process.env.DBURL || "mongodb://localhost/maxivkb";
+mongoose.connect(dbURL);
 let db = mongoose.connection;
 
 
@@ -147,6 +148,7 @@ app.get('/about',function(req, res){
 
 
 //start server
-app.listen(3000, function(){
-    console.log('Server started on port 3000...');
+const port = process.env.PORT || 8504;
+app.listen(port, function(){
+    console.log('Server started on port ' + port + '...');
 });
