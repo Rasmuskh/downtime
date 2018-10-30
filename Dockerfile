@@ -16,6 +16,6 @@
 
 FROM node:8
 WORKDIR /home/node/app
-COPY package.json ./
+COPY package.json package-lock.json ./
 RUN npm install --no-cache
 COPY . .
