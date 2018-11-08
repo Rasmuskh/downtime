@@ -314,7 +314,7 @@ block content
           "order": [[ 3, "asc" ]],
           drawCallback: function () {
             var api = this.api();
-            total = api.column( 6, {search:'applied'} ).data().sum()
+            total = api.column( 6, {search:'applied'} ).data().sum()/60
             nrows =$('#example').DataTable().column(6, {search: 'applied'} ).data().count()
             var mindate = new Date($('#mindate').val());
             var maxdate = new Date($('#maxdate').val());
