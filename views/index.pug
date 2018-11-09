@@ -8,7 +8,6 @@ block content
       * {
         box-sizing: border-box;
         }
-    button.buttonStyle TEST
         /* Create two equal columns that floats next to each other */
         .column {
         float: left;
@@ -36,7 +35,7 @@ block content
                 tr
                   td
                     center
-                      button(style='cursor:pointer;background-color:#66ccff;hover:#383;color: white;border: 5px solid #2ECC71;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
+                      button(style='cursor:pointer;background-color:#66ccff;color: white;border: 5px solid #2ECC71;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
                   td
                     center
                       button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_machine(id)')#I_button SPF
@@ -201,6 +200,35 @@ block content
         chart.series[0].setData(plotdata);
         chart.redraw();
       }
+ 	
+
+      style.
+      .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      }
+      .button1 {
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+      }
+      .button1:hover {
+      background-color: #4CAF50;
+      color: white;
+      }
+      button.button.button1 Green
+
+
 
     //##############################################
     //Filter by range table
