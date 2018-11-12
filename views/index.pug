@@ -414,6 +414,13 @@ block content
         chart.series[0].setData(plotdata);
         chart.redraw();
       } );
+	
+
+      // Event listener to the range filtering inputs to redraw on input
+      $('input[type="search"]').keyup(function() {
+        chart.series[0].setData(plotdata);
+        chart.redraw();
+      } );
 
       //PieChart
       $(function () {
