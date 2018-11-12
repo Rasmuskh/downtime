@@ -32,6 +32,8 @@ block content
       text-align: center;
       text-decoration: none;
       font-size: 18px;
+      -webkit-transition-duration: 0.4s; /* safari */
+      transition-duration: 0.4s;
       }
       body
     <br>
@@ -47,7 +49,7 @@ block content
                 tr
                   td
                     center
-                      button.custombutton(background-color:#66ccff;border: 5px solid #2ECC71;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
+                      button.custombutton(style='background-color:#66ccff;border: 5px solid #2ECC71;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
                   td
                     center
                       button.custombutton(value=1, onclick='click_machine(id)')#I_button SPF
