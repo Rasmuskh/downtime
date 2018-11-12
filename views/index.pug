@@ -21,6 +21,18 @@ block content
         display: table;
         clear: both;
         }
+    style.
+      .custombutton {
+      cursor:pointer;
+      background-color:#2ECC71;
+      color: white;
+      border: 5px solid #66ccff;
+      border-radius: 10%;
+      height:60px;width:60px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      }
       body
     <br>
     center
@@ -35,16 +47,16 @@ block content
                 tr
                   td
                     center
-                      button(style='cursor:pointer;background-color:#66ccff;color: white;border: 5px solid #2ECC71;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
+                      button.custombutton(background-color:#66ccff;border: 5px solid #2ECC71;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
                   td
                     center
-                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_machine(id)')#I_button SPF
+                      button.custombutton(value=1, onclick='click_machine(id)')#I_button SPF
                   td
                     center
-                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1, onclick='click_machine(id)')#R1_button R1
+                      button.custombutton(value=1, onclick='click_machine(id)')#R1_button R1
                   td
                     center
-                      button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:60px;width:60px;text-align: center;text-decoration: none;font-size: 18px;',value=1,onclick='click_machine(id)')#R3_button R3
+                      button.custombutton(value=1, onclick='click_machine(id)')#R3_button R3
             |
             h4 Toggle event codes
             |
