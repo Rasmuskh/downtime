@@ -214,7 +214,7 @@ block content
     table(frame='hsides',style='width:100%')#filtertable
       tbody
         tr
-          td Min duration(h):
+          td Min duration(min):
           td
             input#mindur(name='mindur', type='number', value=0, min=0, step=1)
           td Min date:
@@ -224,7 +224,7 @@ block content
           td
             input#mintime(name='mintime', type='string', value='00:00')
         tr
-          td Max duration(h):
+          td Max duration(min):
           td
             input#maxdur(name='maxdur', type='number',value=999, min=0, step=1)
           td Max date:
@@ -249,7 +249,7 @@ block content
             th(width='16%') Timestamp/Link
             th(width='16%') Code
             th(width='16%') Machine
-            th(width='16%') Duration (hours)
+            th(width='16%') Duration (minutes)
             th(width='16%') Author
       tbody
         each downtimeevent, i in downtimeevents
@@ -314,7 +314,7 @@ block content
           "order": [[ 3, "asc" ]],
           drawCallback: function () {
             var api = this.api();
-            total = api.column( 6, {search:'applied'} ).data().sum()
+            total = api.column( 6, {search:'applied'} ).data().sum()/60
             nrows =$('#example').DataTable().column(6, {search: 'applied'} ).data().count()
             var mindate = new Date($('#mindate').val());
             var maxdate = new Date($('#maxdate').val());
