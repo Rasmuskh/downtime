@@ -35,6 +35,20 @@ block content
       -webkit-transition-duration: 0.75s; /* safari */
       transition-duration: 0.75s;
       }
+    style.
+      .togglebutton {
+      cursor:pointer;
+      background-color:#66ccff;
+      color: white;
+      border: 5px solid #2ECC71;
+      border-radius: 10%;
+      height:60px;width:60px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      -webkit-transition-duration: 0.75s; /* safari */
+      transition-duration: 0.75s;
+      }
       body
     <br>
     center
@@ -49,7 +63,7 @@ block content
                 tr
                   td
                     center
-                      button.custombutton(style='background-color:#66ccff;border: 5px solid #2ECC71;font-size: 14px;',value=1, onclick='click_machine(id)')#All_button Toggle all
+                      button.togglebutton(value=1, onclick='click_machine(id)')#All_button Toggle all
                   td
                     center
                       button.custombutton(value=1, onclick='click_machine(id)')#I_button SPF
@@ -67,7 +81,7 @@ block content
                 tr
                   td
                     center
-                      button.custombutton(style='background-color:#66ccff;border: 5px solid #2ECC71;font-size: 14px;',value=1, onclick='click_machine(id)')#Allcodes_button Toggle all
+                      button.togglebutton(value=1, onclick='click_machine(id)')#Allcodes_button Toggle all
                   td
                     center
                       button.custombutton(value=1, onclick='click_machine(id)')#Bcode_button B
@@ -150,7 +164,6 @@ block content
         document.getElementById(id).value = 1;
         document.getElementById(id).style.background = "#2ECC71";
         if (id=='All_button'){
-          document.getElementById(id).style.background="#2ECC71";
           document.getElementById(id).style.background = "#66ccff";
           for (var i = 0; i < machinebutton_array.length; i++) {
             document.getElementById(machinebutton_array[i]).value = 1;
@@ -162,7 +175,6 @@ block content
         document.getElementById(id).value = 0;
         document.getElementById(id).style.background = "#ffb84d";
         if (id=='All_button'){
-          document.getElementById(id).style.background="#2ECC71";
           document.getElementById(id).style.background = "#66ccff";
           for (var i = 0; i < machinebutton_array.length; i++) {
             document.getElementById(machinebutton_array[i]).value = 0;
