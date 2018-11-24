@@ -377,7 +377,7 @@ block content
             var code_data = $('#example').DataTable().columns(4, { filter: 'applied' } ).data()
             var dur_data = $('#example').DataTable().columns(6, { filter: 'applied' } ).data()
             sum_array = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
-            code_array = ["B", "CT","DIA","HE","I","ID","INF","MAG","MML","MPS","NET","OI","OT","PLC","PSS","RF","UI","VAC","WAT", "WD"];
+            code_array = ["B", "BI", "CT","DIA","HE","I","ID","INF","MAG","MML","MPS","NET","OI","OT","PLC","PSS","RF","UI","VAC","WAT", "WD"];
             for (var n = 0; n < 20; n++) {
               for (var i = 0; i < code_data[0].length; i++) {
                 if(typeof(code_data[0][i]) != undefined){
@@ -525,7 +525,7 @@ block content
 
           //code selection
           event_code =(data[4]); // use data from the code column
-          codebutton_array=['Bcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button', 'WDcode_button']
+          codebutton_array=['Bcode_button', 'BIcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button', 'WDcode_button']
           code_selection = []
           for (var i = 0; i < codebutton_array.length; i++) {
             if(document.getElementById(codebutton_array[i]).value == 1){
