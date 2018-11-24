@@ -147,6 +147,9 @@ block content
                   td
                     center
                       button.custombutton(value=1, onclick='click_code(id)')#WDcode_button WD
+                  td
+                    center
+                      button.custombutton(value=1, onclick='click_code(id)')#BIcode_button BI
           |   
           .column(style="width:72%")
             h4 Downtime distribution
@@ -203,7 +206,7 @@ block content
       }
     script.
       function click_code(id) {
-      codebutton_array=['Bcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button','WDcode_button']
+      codebutton_array=['Bcode_button', 'CTcode_button','DIAcode_button','HEcode_button','Icode_button', 'IDcode_button', 'INFcode_button', 'MAGcode_button', 'MMLcode_button', 'MPScode_button', 'NETcode_button', 'OIcode_button', 'OTcode_button', 'PLCcode_button', 'PSScode_button', 'RFcode_button', 'UIcode_button', 'VACcode_button', 'WATcode_button','WDcode_button', 'BIcode_button']
       //If button is off then a click turns it on
         if( document.getElementById(id).value == 0){
           document.getElementById(id).value = 1;
