@@ -4,13 +4,46 @@ extends layout
 block content
   section.container
     body
-      h2(align='center') About
-      center
-        div(style='width: 750px', align='left')
-          | This app is for logging downtime events to a mongo database as well as for viewing viewing events. The Downtime index allows you to filter the database according to keyword, date, time of day and duration. Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
-          The events codes are:       
-          ul
-            li B: Beamlines
-            li BI: Beam instability
-            li CT: Controls
-            li DIA: diagnostics
+    h2(align='center') About
+    center
+      div(style='width: 750px', align='left')
+        | This app is for logging downtime events to a mongo database as well as for viewing viewing events. The Downtime index allows you to filter the database according to keyword, date, time of day and duration. Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
+        The events codes are:
+        link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+          .container
+            h2(align='center') Detailed view
+            .container
+              table#detailedview.display(style='width:100%')
+                thead
+                  th Event Code
+                  th Description
+                tbody
+                  tr
+                    th B:
+                    td Beamlines
+                  tr
+                    th BI:
+                    td Beam instability
+                  tr
+                    th CT:
+                    td Controls
+                  tr
+                    th DIA:
+                    td Diagnostics
+                  tr
+                    th HE:
+                    td Human error
+
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+  //the script below allows the deletion of events.
+  script(src='/js/main.js')
+  script.
+    $(document).ready( function () {
+    $('#detailedview').DataTable({
+    "bFilter": false,
+    "bInfo" : false,
+    "bPaginate": false,
+    "bSort" : false
+    });
+    } );
