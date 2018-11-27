@@ -2,6 +2,7 @@ extends layout
 
 
 block content
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
   section.container
     body
     h2(align='center') About
@@ -9,13 +10,12 @@ block content
       div(style='width: 750px', align='left')
         | This app is for logging downtime events to a mongo database as well as for viewing viewing events. The Downtime index allows you to filter the database according to keyword, date, time of day and duration. Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
         The events codes are:
-        link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
           .container
-            h2(align='center') Detailed view
+            h2(align='center') Event Codes
             .container
-              table#detailedview.display(style='width:100%')
+              table#code_table.display(style='width:100%')
                 thead
-                  th Event Code
+                  th Code
                   th Description
                 tbody
                   tr
@@ -40,7 +40,7 @@ block content
   script(src='/js/main.js')
   script.
     $(document).ready( function () {
-    $('#detailedview').DataTable({
+    $('#code_table').DataTable({
     "bFilter": false,
     "bInfo" : false,
     "bPaginate": false,
