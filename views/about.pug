@@ -8,13 +8,15 @@ block content
     h2(align='center') About
     center
       div(style='width: 750px', align='left')
-        | This app is for logging downtime events to a mongo database as well as for viewing viewing events. The Downtime index allows you to filter the database according to keyword, date, time of day and duration. Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
-        The events codes are:
+        | This app is for logging downtime events to a database as well as for viewing events. The Downtime index allows you to filter the database according date, time of day, duration and keywords.
+        <br>The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November related to beamline instabilities for which the the terms dump alarm and 311 appears in the description.
+        <br>Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
+        <br>Events are labelled with the following codes:
           .container
             table#code_table.display(style='width:100%')
               thead
-                th Code
-                th Meaning
+                th Event code
+                th 
                 th Comment
               tbody
                 tr
