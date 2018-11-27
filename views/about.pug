@@ -1,124 +1,127 @@
 extends layout
 
 
-  block content
-      link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
-      section.container
-        body
-        h2(align='center') About
-        center
-          div(style='width: 750px', align='left')
-            | This app is for logging downtime events to a database as well as for viewing events. 
-            <br>
-            h5 The Downtime index 
-            This pageallows you to filter the database according date, time of day, duration and keywords.The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear in the description.
-            <br>        
-            h5 Detailed view
-            Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
-            <br>
-            h5 Event codes
-            Events are labelled with the following codes:
-              .container
-                table#code_table.display(style='width:100%')
-                  thead
-                    th Event code
-                    th 
-                    th Comment
-                  tbody
-                    tr
-                      th B:
-                      td Beamlines
-                      td
-                    tr
-                      th BI:
-                      td Beam instability
-                      td
-                    tr
-                      th CT:
-                      td Controls
-                      td 
-                    tr
-                      th DIA:
-                      td Diagnostics
-                      td
-                    tr
-                      th HE:
-                      td Human error
-                      td
-                    tr
-                      th I:
-                      td Injector
-                      td
-                    tr
-                      th ID:
-                      td Insertion Devices
-                      td
-                    tr
-                      th INF:
-                      td Infrastructure
-                      td
-                    tr
-                      th MAG:
-                      td Magnets
-                      td Related to magnets and their power supplies.
-                    tr
-                      th MML:
-                      td MATLAB middle layer
-                      td
-                    tr
-                      th MPS:
-                      td Machine protection system
-                      td
-                    tr
-                      th NET:
-                      td Network
-                      td
-                    tr
-                      th OI:
-                      td Orbit interlock
-                      td
-                    tr
-                      th OT:
-                      td Other
-                      td For events that don't fit anywhere else. When using this code think about if a new event code might be useful.
-                    tr
-                      th PLC:
-                      td Programmable logic controller
-                      td
-                    tr
-                      th PSS
-                      td Personnel safety system
-                      td
-                    tr
-                      th RF
-                      td Radio Frequency
-                      td Related to rf cavities
-                    tr
-                      th UI
-                      td Unscheduled injection
-                      td
-                    tr
-                      th VAC
-                      td Vacuum
-                      td
-                    tr
-                      th WAT
-                      td Water
-                      td Cooling related events
-                    tr
-                      th WD
-                      td Watchdog
-                      td
-      script(src='/bower_components/jquery/dist/jquery.js')
-      script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
-      //the script below allows the deletion of events.
-      script(src='/js/main.js')
-      script.
-        $(document).ready( function () {
-        $('#code_table').DataTable({
-        "bFilter": false,
-        "bInfo" : false,
-        "bPaginate": false,
-        "bSort" : false
-        });
-        } );
+block content
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+  section.container
+    body
+    h2(align='center') About
+    center
+      div(style='width: 750px', align='left')
+        | This app is for logging downtime events to a database as well as for viewing events. 
+        <br>
+        h5 The Downtime index 
+        <br>
+        This pageallows you to filter the database according date, time of day, duration and keywords.The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear in the description.
+        <br>        
+        h5 Detailed view
+        <br>
+        Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
+        <br>
+        h5 Event codes
+        <br>
+        Events are labelled with the following codes:
+          .container
+            table#code_table.display(style='width:100%')
+              thead
+                th Event code
+                th 
+                th Comment
+              tbody
+                tr
+                  th B:
+                  td Beamlines
+                  td
+                tr
+                  th BI:
+                  td Beam instability
+                  td
+                tr
+                  th CT:
+                  td Controls
+                  td 
+                tr
+                  th DIA:
+                  td Diagnostics
+                  td
+                tr
+                  th HE:
+                  td Human error
+                  td
+                tr
+                  th I:
+                  td Injector
+                  td
+                tr
+                  th ID:
+                  td Insertion Devices
+                  td
+                tr
+                  th INF:
+                  td Infrastructure
+                  td
+                tr
+                  th MAG:
+                  td Magnets
+                  td Related to magnets and their power supplies.
+                tr
+                  th MML:
+                  td MATLAB middle layer
+                  td
+                tr
+                  th MPS:
+                  td Machine protection system
+                  td
+                tr
+                  th NET:
+                  td Network
+                  td
+                tr
+                  th OI:
+                  td Orbit interlock
+                  td
+                tr
+                  th OT:
+                  td Other
+                  td For events that don't fit anywhere else. When using this code think about if a new event code might be useful.
+                tr
+                  th PLC:
+                  td Programmable logic controller
+                  td
+                tr
+                  th PSS
+                  td Personnel safety system
+                  td
+                tr
+                  th RF
+                  td Radio Frequency
+                  td Related to rf cavities
+                tr
+                  th UI
+                  td Unscheduled injection
+                  td
+                tr
+                  th VAC
+                  td Vacuum
+                  td
+                tr
+                  th WAT
+                  td Water
+                  td Cooling related events
+                tr
+                  th WD
+                  td Watchdog
+                  td
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+  //the script below allows the deletion of events.
+  script(src='/js/main.js')
+  script.
+    $(document).ready( function () {
+    $('#code_table').DataTable({
+    "bFilter": false,
+    "bInfo" : false,
+    "bPaginate": false,
+    "bSort" : false
+    });
+    } );
