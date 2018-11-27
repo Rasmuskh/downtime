@@ -347,7 +347,7 @@ block content
     script.
       $(document).ready(function() {
         $('#example').DataTable( {
-          "order": [[ 3, "asc" ]],
+          "order": [[ 3, "desc" ]],
           drawCallback: function () {
             var api = this.api();
             total = api.column( 6, {search:'applied'} ).data().sum()/60
