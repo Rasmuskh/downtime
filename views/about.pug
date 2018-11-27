@@ -9,9 +9,9 @@ block content
     center
       div(style='width: 750px', align='left')
         | This app is for logging downtime events to a database as well as for viewing events. The Downtime index allows you to filter the database according date, time of day, duration and keywords.
-        <br>The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November related to beamline instabilities for which the the terms dump alarm and 311 appears in the description.
-        <br>Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
-        <br>Events are labelled with the following codes:
+        <br><br>The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear in the description.
+        <br><br>Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
+        <br><br>Events are labelled with the following codes:
           .container
             table#code_table.display(style='width:100%')
               thead
@@ -74,14 +74,14 @@ block content
                 tr
                   th OT:
                   td Other
-                  td For events that don't fit anywhere else. When using this event think about if a new event code might be useful.
+                  td For events that don't fit anywhere else. When using this code think about if a new event code might be useful.
                 tr
                   th PLC:
                   td Programmable logic controller
                   td
                 tr
                   th PSS
-                  td Perseonnel safety system
+                  td Personnel safety system
                   td
                 tr
                   th RF
