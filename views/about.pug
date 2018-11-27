@@ -11,28 +11,26 @@ block content
         | This app is for logging downtime events to a mongo database as well as for viewing viewing events. The Downtime index allows you to filter the database according to keyword, date, time of day and duration. Each event can be opened in a detailed mode with description, from where they can be edited or deleted. New events are logged via the submit page.
         The events codes are:
           .container
-            h2(align='center') Event Codes
-            .container
-              table#code_table.display(style='width:100%')
-                thead
-                  th Code
-                  th Description
-                tbody
-                  tr
-                    th B:
-                    td Beamlines
-                  tr
-                    th BI:
-                    td Beam instability
-                  tr
-                    th CT:
-                    td Controls
-                  tr
-                    th DIA:
-                    td Diagnostics
-                  tr
-                    th HE:
-                    td Human error
+            table#code_table.display(style='width:100%')
+              thead
+                th Code
+                th Description
+              tbody
+                tr
+                  th B:
+                  td Beamlines
+                tr
+                  th BI:
+                  td Beam instability
+                tr
+                  th CT:
+                  td Controls
+                tr
+                  th DIA:
+                  td Diagnostics
+                tr
+                  th HE:
+                  td Human error
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
