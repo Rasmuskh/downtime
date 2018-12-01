@@ -25,6 +25,8 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
+let schedule = require('./models/schedule');
+
 
 // Load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -68,10 +70,16 @@ app.get('/submit',function(req, res){
     });
 });
 
-//Add About Route
+//Add schedule Route
 app.get('/schedule',function(req, res){
-    res.render('schedule', {
-        title: 'schedule',
+    spf_schedule.find({}, function(err,schedules){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('schedule',{
+                spf_schedules:schedules
+            });
+        }
     });
 });
 
