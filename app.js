@@ -25,7 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
-let timeline = require('./models/timelines');
+let Timeline = require('./models/timelines');
 
 
 // Load view engine
@@ -72,12 +72,12 @@ app.get('/submit',function(req, res){
 
 //Add schedule Route
 app.get('/schedule',function(req, res){
-   spf_schedule.find({}, function(err,schedules){
+    Timeline.find({}, function(err,timelines){
        if(err){
            console.log(err);
        } else{
            res.render('schedule',{
-               spf_schedules:schedules
+               timelines:timelines
            });
        }
    });
