@@ -53,7 +53,7 @@ app.get('/',function(req, res){
     });
 });
 
-delivery plan Route
+//delivery plan Route
 app.get('/schedule',function(req, res){
     Deliveryplan.find({}, function(err,deliveryplans){
         if(err){
@@ -79,13 +79,6 @@ app.get('/downtimeevent/:id', function(req, res){
 app.get('/submit',function(req, res){
     res.render('submit', {
         title: 'Submit entry',
-    });
-});
-
-//Add About Route
-app.get('/schedule',function(req, res){
-    res.render('schedule', {
-        title: 'schedule',
     });
 });
 
