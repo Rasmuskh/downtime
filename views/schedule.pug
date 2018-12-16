@@ -6,32 +6,32 @@ block content
 
 
   h1 Schedule
-  tbody
-    table#timelinetable.display(style='width:100%').compact
-      thead
-          tr
-            th(width='25') Date
-            th(width='25%') SPF scheduled
-            th(width='25%') R1 scheduled
-            th(width='25%') R3 scheduled
+  // tbody
+  //   table#timelinetable.display(style='width:100%').compact
+  //     thead
+  //         tr
+  //           th(width='25') Date
+  //           th(width='25%') SPF scheduled
+  //           th(width='25%') R1 scheduled
+  //           th(width='25%') R3 scheduled
 
-      tbody
-        each timeline, i in timelines
-          tr
-            td
-              a #{timeline.date}
-            td
-              a #{timeline.SPF_schedule}
-            td
-              a #{timeline.R1_schedule}
-            td
-              a #{timeline.R3_schedule}
-      tfoot
-        tr
-          th
-          th
-          th
-          th
+  //     tbody
+  //       each timeline, i in timelines
+  //         tr
+  //           td
+  //             a #{timeline.date}
+  //           td
+  //             a #{timeline.SPF_schedule}
+  //           td
+  //             a #{timeline.R1_schedule}
+  //           td
+  //             a #{timeline.R3_schedule}
+  //     tfoot
+  //       tr
+  //         th
+  //         th
+  //         th
+  //         th
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
