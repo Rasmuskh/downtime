@@ -25,7 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
-let Deliveryplan = require('./model/deliveryplans');
+// let Deliveryplan = require('./model/deliveryplans');
 
 // Load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -54,17 +54,17 @@ app.get('/',function(req, res){
 });
 
 //delivery plan Route
-app.get('/schedule',function(req, res){
-    Deliveryplan.find({}, function(err,deliveryplans){
-        if(err){
-            console.log(err);
-        } else{
-            res.render('schedule',{
-                deliveryplans:deliveryplans
-            });
-        }
-    });
-});
+// app.get('/schedule',function(req, res){
+//     Deliveryplan.find({}, function(err,deliveryplans){
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.render('schedule',{
+//                 deliveryplans:deliveryplans
+//             });
+//         }
+//     });
+// });
 
 // Single event Route
 app.get('/downtimeevent/:id', function(req, res){
