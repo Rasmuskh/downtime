@@ -5,43 +5,44 @@ block content
   .container
 
 
-  h1 Schedule
-  // tbody
-  //   table#timelinetable.display(style='width:100%').compact
-  //     thead
-  //         tr
-  //           th(width='25') Date
-  //           th(width='25%') SPF scheduled
-  //           th(width='25%') R1 scheduled
-  //           th(width='25%') R3 scheduled
+  h1 here goes the schedule!
+  tbody
+    table#weektable.display(style='width:100%').compact
+      thead
+        tr
+          h3
+            center R3 Schedule Table
+          th
+            h4
+              b Week 42
+          th Monday
+          th Tuesday
+          th Wednesday
+          th Thursday
+          th Friday
+          th Saturday
+          th Sunday
+      tbody
+        tr
+          th
+            b Planned delivery (h)
+          each val, index in [24,0,10,9,34,16,4]
+            td #{val}
+              //- button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:40px;width:105px;text-align: center;text-decoration: none;font-size: 18px;', value=1, onclick='click(id)')#index blip
+              //- script.
+              //-   function click(id) {
+              //-   document.getElementById(id).style.background = "#66ccff",
+              //-   console.log('dfgfgd')
+              //-   }
 
-  //     tbody
-  //       each timeline, i in timelines
-  //         tr
-  //           td
-  //             a #{timeline.date}
-  //           td
-  //             a #{timeline.SPF_schedule}
-  //           td
-  //             a #{timeline.R1_schedule}
-  //           td
-  //             a #{timeline.R3_schedule}
-  //     tfoot
-  //       tr
-  //         th
-  //         th
-  //         th
-  //         th
-
-  // script(src='/bower_components/jquery/dist/jquery.js')
-  // script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
-  // script.
-  //   $(document).ready( function () {
-  //   $('#timelinetable').DataTable({
-  //   "order": [[ 0, "asc" ]],
-  //   "bFilter": false,
-  //   "bInfo" : false,
-  //   "bPaginate": false,
-  //   "bSort" : false
-  //   });
-  //   } );
+  script(src='/bower_components/jquery/dist/jquery.js')
+  script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+  script.
+    $(document).ready( function () {
+    $('#weektable').DataTable({
+    "bFilter": false,
+    "bInfo" : false,
+    "bPaginate": false,
+    "bSort" : false
+    });
+    } );
