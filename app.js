@@ -25,7 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
-let Timeline = require('./models/timelines');
+//let Timeline = require('./models/timelines');
 
 
 // Load view engine
@@ -71,17 +71,17 @@ app.get('/submit',function(req, res){
 });
 
 //Add schedule Route
-app.get('/schedule',function(req, res){
-    Timeline.find({}, function(err,timelines){
-       if(err){
-           console.log(err);
-       } else{
-           res.render('schedule',{
-               timelines:timelines
-           });
-       }
-   });
-});
+// app.get('/schedule',function(req, res){
+//     Timeline.find({}, function(err,timelines){
+//        if(err){
+//            console.log(err);
+//        } else{
+//            res.render('schedule',{
+//                timelines:timelines
+//            });
+//        }
+//    });
+// });
 
 // Add Submit POST Route
 app.post('/submit',function(req, res){
