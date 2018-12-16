@@ -25,7 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
-let schedule = require('./models/schedule');
+let timeline = require('./models/timelines');
 
 
 // Load view engine
