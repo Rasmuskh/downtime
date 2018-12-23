@@ -25,7 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
-let Deliveryplan = require('./model/deliveryplans');
+let Deliveryplan = require('./models/deliveryplans');
 
 // Load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -53,7 +53,7 @@ app.get('/',function(req, res){
     });
 });
 
-delivery plan Route
+//delivery plan Route
 app.get('/schedule',function(req, res){
     Deliveryplan.find({}, function(err,deliveryplans){
         if(err){

@@ -26,14 +26,9 @@ block content
         tr
           th
             b Planned delivery (h)
-          each val, index in [24,0,10,9,34,16,4]
+        each val, index in deliveryplans
+          tr
             td #{val}
-              //- button(style='cursor:pointer;background-color:#2ECC71;color: white;border: 5px solid #66ccff;border-radius: 10%;height:40px;width:105px;text-align: center;text-decoration: none;font-size: 18px;', value=1, onclick='click(id)')#index blip
-              //- script.
-              //-   function click(id) {
-              //-   document.getElementById(id).style.background = "#66ccff",
-              //-   console.log('dfgfgd')
-              //-   }
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
