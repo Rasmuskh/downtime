@@ -2,6 +2,10 @@ let mongoose = require('mongoose');
 
 // deliveryplan entry structure schema
 let deliveryplanSchema= mongoose.Schema({
+    date:{
+        type:String,
+        required: false
+    },
     R1plan:{
         type: Number,
         required: false
@@ -12,10 +16,6 @@ let deliveryplanSchema= mongoose.Schema({
     },
     SPFplan:{
         type: Number,
-        required: false
-    },
-    date:{
-        type:String,
         required: false
     }
 });

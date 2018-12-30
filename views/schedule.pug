@@ -14,22 +14,48 @@ block content
             center R3 Schedule Table
           th
             h4
-              b Week 42
-          th Monday
-          th Tuesday
-          th Wednesday
-          th Thursday
-          th Friday
-          th Saturday
-          th Sunday
+              b Date
+          th R1 planned (hours)
+          th R3 Planned (hours)
+          th SPF planned (hours)
       tbody
-        tr
-          th
-            b Planned delivery (h)
         each val, index in deliveryplans
           tr
-            td #{val}
-
+            td
+              a(href="/deliveryplan/"+val._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{val.date}</button>
+            td #{val.R3plan}
+            td #{val.SPFplan}
+    br
+    style.
+      .new_button{
+      cursor:pointer;
+      background-color:#2ECC71;
+      color: white;
+      border: 5px solid #66ccff;
+      border-radius: 10%;
+      height:60px;width:100px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      -webkit-transition-duration: 0.75s; /* safari */
+      transition-duration: 0.75s;
+      }
+    style.
+      .edit_button{
+      cursor:pointer;
+      background-color:#ffb84d;
+      color: white;
+      border: 5px solid #66ccff;
+      border-radius: 10%;
+      height:60px;width:100px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      -webkit-transition-duration: 0.75s; /* safari */
+      transition-duration: 0.75s;
+      }
+    button.new_button(type='button', onclick="window.location.href='/schedule/submit'")#New New
+    //button.edit_button(value=1,)#I_button Edit
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
   script.

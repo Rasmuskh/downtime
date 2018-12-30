@@ -75,9 +75,16 @@ app.get('/downtimeevent/:id', function(req, res){
     });
 });
 
-//Add submit Route
+//Add submit downtime event Route
 app.get('/submit',function(req, res){
     res.render('submit', {
+        title: 'Submit entry',
+    });
+});
+
+//Add submit deliveryplan Route
+app.get('/schedule/submit',function(req, res){
+    res.render('schedule_submit', {
         title: 'Submit entry',
     });
 });
@@ -94,6 +101,23 @@ app.post('/submit',function(req, res){
     downtimeevent.duration = req.body.duration;
 
     downtimeevent.save(function(err){
+        if(err){
+            console.log(err);
+        } else{
+            res.redirect('/');
+        }
+    });
+});
+
+// Add submit deliveryplan POST Route
+app.post('/schedule/submit',function(req, res){
+    let deliveryplan = new Deliveryplan();
+    deliveryplan.date = req.body.date;
+    deliveryplan.R1plan = req.body.R1plan;
+    deliveryplan.R3plan = req.body.R3plan;
+    deliveryplan.SPFplan = req.body.SPFplan;
+
+    deliveryplan.save(function(err){
         if(err){
             console.log(err);
         } else{
