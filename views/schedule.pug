@@ -62,9 +62,9 @@ block content
   script.
     $(document).ready( function () {
     $('#weektable').DataTable({
+    "order": [[ 0, "desc" ]],
     "bFilter": false,
     "bInfo" : false,
     "bPaginate": false,
-    "bSort" : false
     });
     } );

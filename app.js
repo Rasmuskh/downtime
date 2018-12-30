@@ -197,6 +197,16 @@ app.delete('/downtimeevent/:id', function(req, res){
         res.send('Success');
     });
 });
+app.delete('/schedule/edit/:id', function(req, res){
+    let query = {_id:req.params.id};
+
+    Deliveryplan.remove(query, function(err){
+        if(err){
+            console.log(err);
+        }
+        res.send('Success');
+    });
+});
 
 
 //Add About Route
