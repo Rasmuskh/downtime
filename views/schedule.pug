@@ -22,7 +22,8 @@ block content
         each val, index in deliveryplans
           tr
             td
-              a(href="/deliveryplan/"+val._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{val.date}</button>
+              a(href="/schedule/edit/"+val._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{val.date}</button>
+            td #{val.R1plan}
             td #{val.R3plan}
             td #{val.SPFplan}
     br

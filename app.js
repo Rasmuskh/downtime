@@ -121,7 +121,7 @@ app.post('/schedule/submit',function(req, res){
         if(err){
             console.log(err);
         } else{
-            res.redirect('/');
+            res.redirect('/schedule');
         }
     });
 });
@@ -132,6 +132,16 @@ app.get('/downtimeevent/edit/:id', function(req, res){
         res.render('edit_downtimeevent',{
             title:'Edit Downtimeevent',
             downtimeevent:downtimeevent  
+        });
+    });
+});
+
+// Edit deliveryplan route
+app.get('/schedule/edit/:id', function(req, res){
+    Deliveryplan.findById(req.params.id, function(err, deliveryplan){
+        res.render('schedule_edit',{
+            title:'Edit Deliveryplan',
+            deliveryplan:deliveryplan
         });
     });
 });
@@ -154,6 +164,25 @@ app.post('/downtimeevent/edit/:id',function(req, res){
             console.log(err);
         } else{ 
             res.redirect('/');
+        }
+    });
+});
+
+// update deliveryplan POST Route
+app.post('/schedule/edit/:id',function(req, res){
+    let deliveryplan  = {}
+    deliveryplan.date = req.body.date;
+    deliveryplan.R1plan = req.body.R1plan;
+    deliveryplan.R3plan = req.body.R3plan;
+    deliveryplan.SPFplan = req.body.SPFplan;
+
+    let query ={_id:req.params.id};
+
+    Deliveryplan.update(query, deliveryplan, function(err){
+        if(err){
+            console.log(err);
+        } else{ 
+            res.redirect('/schedule');
         }
     });
 });
