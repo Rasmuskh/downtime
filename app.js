@@ -42,14 +42,22 @@ app.use(express.static(path.join(__dirname,'public')));
 
 // Home Route
 app.get('/',function(req, res){
+    //Make downtime collection accessible
     Downtimeevent.find({}, function(err,downtimeevents){
         if(err){
             console.log(err);
-        } else{
-            res.render('index',{
-                downtimeevents:downtimeevents
-            });
         }
+        //Make deliveryplan collection accessible
+        Deliveryplan.find({}, function(err,deliveryplans){
+            if(err){
+                console.log(err);
+            } else{
+                res.render('index',{
+                    downtimeevents:downtimeevents,
+                    deliveryplans:deliveryplans
+                });
+            };
+        });
     });
 });
 
@@ -62,7 +70,7 @@ app.get('/schedule',function(req, res){
             res.render('schedule',{
                 deliveryplans:deliveryplans
             });
-        }
+        };
     });
 });
 

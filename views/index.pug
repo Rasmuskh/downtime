@@ -4,6 +4,14 @@ extends layout
 block content
   link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
   .container
+    //Need to sum planned delivery for each system in the selected interval
+    //Currently the mongo collections are defined in html, but when I switch to js scope they are undefined...
+    //- -
+    //-   var R1plan_sum = 0
+    //- each sch, i in deliveryplans
+    //-   R1plan_sum += #{sch.R1plan}
+
+
     style.
       * {
         box-sizing: border-box;
@@ -268,9 +276,9 @@ block content
             input#maxdate(name='maxdate', type='date', value='2019-12-31')
           td max time
           td
-            input#maxtime(name='maxtime', type='string', value='23:59') 
+            input#maxtime(name='maxtime', type='string', value='23:59')
     <br>
-    <br>
+
     //##############################################
     //The downtime event table
     //##############################################
@@ -357,22 +365,21 @@ block content
             var timeDiff = maxdate.getTime() - mindate.getTime();
             var diffHours = timeDiff/(1000*3600);
 
-
-            $( api.table().column(3).footer() ).html(
-            'Total downtime: <br>' + total + ' h'
-            );
-            $( api.table().column(4).footer() ).html(
-            'Percentage down: <br>' + Math.round(100*(total/diffHours)*100)/100 + ' %'
-            );
-            $( api.table().column(5).footer() ).html(
-            'Percentage up: <br>' + Math.round(100*((diffHours-total)/diffHours)*100)/100 + ' %'
-            );
             $( api.table().column(6).footer() ).html(
-            'MTTR: <br>'  + Math.round(total/nrows*100)/100 + ' h'
+            'Total downtime: ' +Math.round(total*100)/100 + ' h'
             );
-            $( api.table().column(7).footer() ).html(
-            'MTBF: <br>' + Math.round((diffHours-total)/nrows*100)/100 + ' h'
-            );
+            //- $( api.table().column(4).footer() ).html(
+            //- 'Percentage down: <br>' + Math.round(100*(total/diffHours)*100)/100 + ' %'
+            //- );
+            //- $( api.table().column(5).footer() ).html(
+            //- 'Percentage up: <br>' + Math.round(100*((diffHours-total)/diffHours)*100)/100 + ' %'
+            //- );
+            //- $( api.table().column(6).footer() ).html(
+            //- 'MTTR: <br>'  + Math.round(total/nrows*100)/100 + ' h'
+            //- );
+            //- $( api.table().column(7).footer() ).html(
+            //- 'MTBF: <br>' + Math.round((diffHours-total)/nrows*100)/100 + ' h'
+            //- );
 
             var code_data = $('#example').DataTable().columns(4, { filter: 'applied' } ).data()
             var dur_data = $('#example').DataTable().columns(6, { filter: 'applied' } ).data()
@@ -414,17 +421,17 @@ block content
       // Event listener to the range filtering inputs to redraw on input
       var table = $('#example').DataTable();
       $('#mindur, #maxdur, #mindate, #maxdate, #mintime, #maxtime').keyup( function() {
-        table.draw()
+        table.draw();
         chart.series[0].setData(plotdata);
         chart.redraw();
       } );
-	
 
       // Event listener to the range filtering inputs to redraw on input
       $('input[type="search"]').keyup(function() {
         chart.series[0].setData(plotdata);
         chart.redraw();
       } );
+
 
       //PieChart
       $(function () {
@@ -538,6 +545,5 @@ block content
               return true;
               }
               return false;
-
           }
       );
