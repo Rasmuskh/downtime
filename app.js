@@ -25,6 +25,7 @@ const app = express();
 
 // Bring in Models
 let Downtimeevent = require('./models/downtimeevents');
+let Deliveryplan = require('./models/deliveryplans');
 
 // Load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -41,14 +42,35 @@ app.use(express.static(path.join(__dirname,'public')));
 
 // Home Route
 app.get('/',function(req, res){
+    //Make downtime collection accessible
     Downtimeevent.find({}, function(err,downtimeevents){
         if(err){
             console.log(err);
-        } else{
-            res.render('index',{
-                downtimeevents:downtimeevents
-            });
         }
+        //Make deliveryplan collection accessible
+        Deliveryplan.find({}, function(err,deliveryplans){
+            if(err){
+                console.log(err);
+            } else{
+                res.render('index',{
+                    downtimeevents:downtimeevents,
+                    deliveryplans:deliveryplans
+                });
+            };
+        });
+    });
+});
+
+//delivery plan Route
+app.get('/schedule',function(req, res){
+    Deliveryplan.find({}, function(err,deliveryplans){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('schedule',{
+                deliveryplans:deliveryplans
+            });
+        };
     });
 });
 
@@ -61,17 +83,17 @@ app.get('/downtimeevent/:id', function(req, res){
     });
 });
 
-//Add submit Route
+//Add submit downtime event Route
 app.get('/submit',function(req, res){
     res.render('submit', {
         title: 'Submit entry',
     });
 });
 
-//Add About Route
-app.get('/schedule',function(req, res){
-    res.render('schedule', {
-        title: 'schedule',
+//Add submit deliveryplan Route
+app.get('/schedule/submit',function(req, res){
+    res.render('schedule_submit', {
+        title: 'Submit entry',
     });
 });
 
@@ -95,12 +117,39 @@ app.post('/submit',function(req, res){
     });
 });
 
+// Add submit deliveryplan POST Route
+app.post('/schedule/submit',function(req, res){
+    let deliveryplan = new Deliveryplan();
+    deliveryplan.date = req.body.date;
+    deliveryplan.R1plan = req.body.R1plan;
+    deliveryplan.R3plan = req.body.R3plan;
+    deliveryplan.SPFplan = req.body.SPFplan;
+
+    deliveryplan.save(function(err){
+        if(err){
+            console.log(err);
+        } else{
+            res.redirect('/schedule');
+        }
+    });
+});
+
 // Edit events route
 app.get('/downtimeevent/edit/:id', function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('edit_downtimeevent',{
             title:'Edit Downtimeevent',
             downtimeevent:downtimeevent  
+        });
+    });
+});
+
+// Edit deliveryplan route
+app.get('/schedule/edit/:id', function(req, res){
+    Deliveryplan.findById(req.params.id, function(err, deliveryplan){
+        res.render('schedule_edit',{
+            title:'Edit Deliveryplan',
+            deliveryplan:deliveryplan
         });
     });
 });
@@ -127,10 +176,39 @@ app.post('/downtimeevent/edit/:id',function(req, res){
     });
 });
 
+// update deliveryplan POST Route
+app.post('/schedule/edit/:id',function(req, res){
+    let deliveryplan  = {}
+    deliveryplan.date = req.body.date;
+    deliveryplan.R1plan = req.body.R1plan;
+    deliveryplan.R3plan = req.body.R3plan;
+    deliveryplan.SPFplan = req.body.SPFplan;
+
+    let query ={_id:req.params.id};
+
+    Deliveryplan.update(query, deliveryplan, function(err){
+        if(err){
+            console.log(err);
+        } else{ 
+            res.redirect('/schedule');
+        }
+    });
+});
+
 app.delete('/downtimeevent/:id', function(req, res){
     let query = {_id:req.params.id};
 
     Downtimeevent.remove(query, function(err){
+        if(err){
+            console.log(err);
+        }
+        res.send('Success');
+    });
+});
+app.delete('/schedule/edit/:id', function(req, res){
+    let query = {_id:req.params.id};
+
+    Deliveryplan.remove(query, function(err){
         if(err){
             console.log(err);
         }
