@@ -3,6 +3,13 @@ An application for registering, plotting and viewing downtime at MAX IV.
 Starts an Express server running on port 8504
 Data is stored using mongo db, running on port 27017
 Stack:  mongodb, node.js, express.js (expressjs.com), pug (pugjs.org)
+
+#list of suggested features
+-Make date selection box work on all versions of firefox
+-Have a start and an end time and automatically calculate duration as the difference
+-add a parameter beamlines present. This will is useful because we no longer count it as downtime when beamlines or absent. having this feature would allow us to compare actual and hypothetical (omnipresent beamlines) downtime.
+-change delete button for an archive function.
+
 #Installation
 Run with docker: 
 > docker-compose up

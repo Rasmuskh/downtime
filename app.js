@@ -54,9 +54,9 @@ app.get('/',function(req, res){
             } else{
                 res.render('index',{
                     downtimeevents:downtimeevents,
-                    deliveryplans:deliveryplans
+                    deliveryplans:deliveryplans,
                 });
-            };
+            }
         });
     });
 });

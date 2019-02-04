@@ -1,16 +1,53 @@
 extends layout
 
-
 block content
   link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
   .container
-    //Need to sum planned delivery for each system in the selected interval
-    //Currently the mongo collections are defined in html, but when I switch to js scope they are undefined...
-    //- -
-    //-   var R1plan_sum = 0
-    //- each sch, i in deliveryplans
-    //-   R1plan_sum += #{sch.R1plan}
 
+    //- script.
+    //-   document.addEventListener("DOMContentLoaded", function(event) {
+    //-   var startdate = new Date(document.getElementsByName('mindate')[0].value);
+    //-   })
+    script.
+      function pr(deliveryplans) {
+        console.log(deliveryplans)
+        R1downSum = 123;
+        deliveryplans.forEach(sch => {
+        D = new Date(sch.date);
+        if ( D > minDate)
+          R1planSum += sch.R1plan;
+        }),
+        document.getElementById("result").innerHTML = document.getElementById('mindate').value + " --- " + document.getElementById('maxdate').value + R1downSum;
+      }
+    //- - var R1planSum = 0
+    //- - let R1downSum = 0
+    //- - var R1numEvents = 0
+
+
+    //- - var minDate = new Date('2019-01-01')
+    //- - var maxDate = new Date('3020-01-01')
+    //- each sch, i in deliveryplans
+    //-   - var D = new Date(sch.date)
+    //-   - if ( D > minDate)
+    //-     - R1planSum += sch.R1plan
+    //- each downtimeevent, k in downtimeevents
+    //-   - var DateDT = new Date(downtimeevent.date)
+    //-   - if ((downtimeevent.machine == "R1") && (DateDT > minDate))
+    //-     - R1downSum += downtimeevent.duration/60
+    //-     - R1numEvents += 1
+
+    form(action='PayslipServlet', method='get')
+      |
+      span#result
+      br
+      input(type='button', value='Generate statistics', onclick='pr(deliveryplans)')
+      each sch, i in deliveryplans
+        h2 #{sch.date}
+  
+
+
+    //- h2 R1 planned delivery: #{R1planSum} hours
+    //- h2 R1 downtime: #{R1downSum} hours
 
     style.
       * {
@@ -351,7 +388,7 @@ block content
     script(src='/bower_components/highcharts/modules/exporting.js')
     script(src='/bower_components/highcharts/modules/export-data.js')
 
-    //Initialize datatable
+    //Initialize datatable and piechart
     script.
       $(document).ready(function() {
         $('#example').DataTable( {
@@ -368,18 +405,6 @@ block content
             $( api.table().column(6).footer() ).html(
             'Total downtime: ' +Math.round(total*100)/100 + ' h'
             );
-            //- $( api.table().column(4).footer() ).html(
-            //- 'Percentage down: <br>' + Math.round(100*(total/diffHours)*100)/100 + ' %'
-            //- );
-            //- $( api.table().column(5).footer() ).html(
-            //- 'Percentage up: <br>' + Math.round(100*((diffHours-total)/diffHours)*100)/100 + ' %'
-            //- );
-            //- $( api.table().column(6).footer() ).html(
-            //- 'MTTR: <br>'  + Math.round(total/nrows*100)/100 + ' h'
-            //- );
-            //- $( api.table().column(7).footer() ).html(
-            //- 'MTBF: <br>' + Math.round((diffHours-total)/nrows*100)/100 + ' h'
-            //- );
 
             var code_data = $('#example').DataTable().columns(4, { filter: 'applied' } ).data()
             var dur_data = $('#example').DataTable().columns(6, { filter: 'applied' } ).data()
@@ -547,3 +572,4 @@ block content
               return false;
           }
       );
+
