@@ -10,14 +10,24 @@ block content
     //-   })
     script.
       function pr(deliveryplans) {
-        console.log(deliveryplans)
+        //RASMUS:This line below solves it, so the function parameter 'deliveryplans' is not really needed. I'm still keeping it though
+        //in case you wanna see how that workds as well (so both solutions are working in this example.)
+
+        //RASMUS 'x' contains the deliveryplans:
+        var x = !{JSON.stringify(deliveryplans)}
+        console.log(x);
+
+        //RASMUS 'deliveryplans' contains the deliveryplans:
+        console.log(deliveryplans);
+
+        var minDate =  document.getElementById('mindate').value;
         R1downSum = 123;
         deliveryplans.forEach(sch => {
         D = new Date(sch.date);
         if ( D > minDate)
           R1planSum += sch.R1plan;
         }),
-        document.getElementById("result").innerHTML = document.getElementById('mindate').value + " --- " + document.getElementById('maxdate').value + R1downSum;
+        document.getElementById("result").innerHTML = minDate + " --- " + document.getElementById('maxdate').value + R1downSum;
       }
     //- - var R1planSum = 0
     //- - let R1downSum = 0
@@ -40,7 +50,11 @@ block content
       |
       span#result
       br
-      input(type='button', value='Generate statistics', onclick='pr(deliveryplans)')
+
+      <!-- RASMUS: here we're passing a stringified version of the object (or the list of objects). 
+      This is not really needed though, cause we can access it directly in the js function without passing it as a param (see the js function above)-->
+
+      input(type='button', value='Generate statistics', onclick='pr(' + JSON.stringify(deliveryplans) + ')')
       each sch, i in deliveryplans
         h2 #{sch.date}
   
