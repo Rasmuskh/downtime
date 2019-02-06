@@ -39,7 +39,7 @@ block content
         }),
         downtimeevents.forEach(dt => {
           date_down = new Date(dt.date);
-          if ( (date_down >= minDate) && (date_down <= maxDate) )
+          if ( (date_down >= minDate) && (date_down <= maxDate) ){
             if ( dt.machine == 'R1')
               R1dur += dt.duration;
               R1numEvents += 1
@@ -49,6 +49,7 @@ block content
             if ( dt.machine == 'I')
               SPFdur += dt.duration;
               SPFnumEvents += 1
+          }
         }),
         //calculate more R1 variables
         R1dur = (R1dur/60).toFixed(2)
