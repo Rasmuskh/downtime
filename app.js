@@ -52,6 +52,10 @@ app.get('/',function(req, res){
             if(err){
                 console.log(err);
             } else{
+                console.log("DELIVERYPLANS:");
+                console.log(deliveryplans);
+                console.log("DOWNTIMEEVENTS:");
+                console.log(downtimeevents);
                 res.render('index',{
                     downtimeevents:downtimeevents,
                     deliveryplans:deliveryplans,
