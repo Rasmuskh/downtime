@@ -9,6 +9,7 @@ Stack:  mongodb, node.js, express.js (expressjs.com), pug (pugjs.org)
 -Have a start and an end time and automatically calculate duration as the difference
 -add a parameter beamlines present. This will is useful because we no longer count it as downtime when beamlines or absent. having this feature would allow us to compare actual and hypothetical (omnipresent beamlines) downtime.
 -change delete button for an archive function.
+-New event codes for linac: Laser=LAS, Unplanned Trimming=UT, High level software = HLS
 
 #Installation
 Run with docker: 

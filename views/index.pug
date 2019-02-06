@@ -4,50 +4,94 @@ block content
   link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
   .container
 
-    //- script.
-    //-   document.addEventListener("DOMContentLoaded", function(event) {
-    //-   var startdate = new Date(document.getElementsByName('mindate')[0].value);
-    //-   })
     script.
-      function pr(deliveryplans) {
-        console.log(deliveryplans)
-        R1downSum = 123;
+      function pr() {
+        //RASMUS:This line below solves it, so the function parameter 'deliveryplans' is not really needed. I'm still keeping it though
+        //in case you wanna see how that workds as well (so both solutions are working in this example.)
+
+        //Variables containing the two database collections
+        var deliveryplans = !{JSON.stringify(deliveryplans)}
+        var downtimeevents = !{JSON.stringify(downtimeevents)}
+        //Dates for filtering databases
+        var minDate = document.getElementById('mindate').value;
+        minDate = new Date(minDate)
+        var maxDate =  new Date(document.getElementById('maxdate').value);
+        maxDate = new Date(maxDate)
+        //R1 variables
+        R1planSum = 0
+        R1dur = 0
+        R1numEvents = 0
+        //R3 variables
+        R3planSum = 0
+        R3dur = 0
+        R3numEvents = 0
+        //SPF variables
+        SPFplanSum = 0
+        SPFdur = 0
+        SPFnumEvents = 0
+        //
         deliveryplans.forEach(sch => {
-        D = new Date(sch.date);
-        if ( D > minDate)
-          R1planSum += sch.R1plan;
+          date_deliv = new Date(sch.date);
+          if ( (date_deliv >= minDate) && (date_deliv <= maxDate) )
+            R1planSum += sch.R1plan;
+            R3planSum += sch.R3plan;
+            SPFplanSum += sch.SPFplan;
         }),
-        document.getElementById("result").innerHTML = document.getElementById('mindate').value + " --- " + document.getElementById('maxdate').value + R1downSum;
+        downtimeevents.forEach(dt => {
+          date_down = new Date(dt.date);
+          if ( (date_down >= minDate) && (date_down <= maxDate) )
+            if ( dt.machine == 'R1')
+              R1dur += dt.duration;
+              R1numEvents += 1
+            if ( dt.machine == 'R3')
+              R3dur += dt.duration;
+              R3numEvents += 1
+            if ( dt.machine == 'SPF')
+              SPFdur += dt.duration;
+              SPFnumEvents += 1
+        }),
+        //calculate more R1 variables
+        R1dur = (R1dur/60).toFixed(2)
+        R1uptime = ( 100*(R1planSum - R1dur) / R1planSum ).toFixed(2)
+        R1MTTR = (R1planSum/R1numEvents).toFixed(2)
+        R1MTBF = ((R1planSum - R1dur)/R1numEvents).toFixed(2)
+        R1MTTF = (R1planSum/R1numEvents).toFixed(2)
+        //calculate more R3 variables
+        R3dur = (R3dur/60).toFixed(2)
+        R3uptime = ( 100*(R3planSum - R3dur) / R3planSum ).toFixed(2)
+        R3MTTR = (R3planSum/R3numEvents).toFixed(2)
+        R3MTBF = ((R3planSum - R3dur)/R3numEvents).toFixed(2)
+        R3MTTF = (R3planSum/R3numEvents).toFixed(2)
+        //calculate more SPF R1 variables
+        SPFdur = (SPFdur/60).toFixed(2)
+        SPFuptime = ( 100*(SPFplanSum -SPFdur) /SPFplanSum ).toFixed(2)
+        SPFMTTR = (SPFplanSum/SPFnumEvents).toFixed(2)
+        SPFMTBF = ((SPFplanSum -SPFdur)/SPFnumEvents).toFixed(2)
+        SPFMTTF = (SPFplanSum/SPFnumEvents).toFixed(2)
+        //R1 elements to span
+        document.getElementById("R1planSum").innerHTML = R1planSum
+        document.getElementById("R1dur").innerHTML = R1dur
+        document.getElementById("R1uptime").innerHTML = R1uptime
+        document.getElementById("R1MTTR").innerHTML = R1MTTR
+        document.getElementById("R1MTTF").innerHTML = R1MTTF
+        document.getElementById("R1MTBF").innerHTML = R1MTBF
+        //R3 elements to span
+        document.getElementById("R3planSum").innerHTML = R3planSum
+        document.getElementById("R3dur").innerHTML = R3dur
+        document.getElementById("R3uptime").innerHTML = R3uptime
+        document.getElementById("R3MTTR").innerHTML = R3MTTR
+        document.getElementById("R3MTTF").innerHTML = R3MTTF
+        document.getElementById("R3MTBF").innerHTML= R3MTBF
+        //SPF elements to span
+        document.getElementById("SPFplanSum").innerHTML = SPFplanSum
+        document.getElementById("SPFdur").innerHTML = SPFdur
+        document.getElementById("SPFuptime").innerHTML = SPFuptime
+        document.getElementById("SPFMTTR").innerHTML = SPFMTTR
+        document.getElementById("SPFMTTF").innerHTML = SPFMTTF
+        document.getElementById("SPFMTBF").innerHTML = SPFMTBF
       }
-    //- - var R1planSum = 0
-    //- - let R1downSum = 0
-    //- - var R1numEvents = 0
 
 
-    //- - var minDate = new Date('2019-01-01')
-    //- - var maxDate = new Date('3020-01-01')
-    //- each sch, i in deliveryplans
-    //-   - var D = new Date(sch.date)
-    //-   - if ( D > minDate)
-    //-     - R1planSum += sch.R1plan
-    //- each downtimeevent, k in downtimeevents
-    //-   - var DateDT = new Date(downtimeevent.date)
-    //-   - if ((downtimeevent.machine == "R1") && (DateDT > minDate))
-    //-     - R1downSum += downtimeevent.duration/60
-    //-     - R1numEvents += 1
-
-    form(action='PayslipServlet', method='get')
-      |
-      span#result
-      br
-      input(type='button', value='Generate statistics', onclick='pr(deliveryplans)')
-      each sch, i in deliveryplans
-        h2 #{sch.date}
-  
-
-
-    //- h2 R1 planned delivery: #{R1planSum} hours
-    //- h2 R1 downtime: #{R1downSum} hours
 
     style.
       * {
@@ -315,7 +359,61 @@ block content
           td
             input#maxtime(name='maxtime', type='string', value='23:59')
     <br>
-
+    form(action='PayslipServlet', method='get')
+      |
+      table(style='width:100%', border='1')
+        tr
+          th Machine
+          th Planned delivery (h)
+          th total downtime (h)
+          th uptime (%)
+          th MTTR (h)
+          th MTTF (h)
+          th MTBF (h)
+        tr
+          th R1
+          td
+            span#R1planSum
+          td
+            span#R1dur
+          td
+            span#R1uptime
+          td
+            span#R1MTTR
+          td
+            span#R1MTTF
+          td
+            span#R1MTBF
+        tr
+          th R3
+          td
+            span#R3planSum
+          td
+            span#R3dur
+          td
+            span#R3uptime
+          td
+            span#R3MTTR
+          td
+            span#R3MTTF
+          td
+            span#R3MTBF
+          tr
+            th SPF
+            td
+              span#SPFplanSum
+            td
+              span#SPFdur
+            td
+              span#SPFuptime
+            td
+              span#SPFMTTR
+            td
+              span#SPFMTTF
+            td
+              span#SPFMTBF
+      br
+      input(type='button', value='Generate statistics', onclick='pr()')
     //##############################################
     //The downtime event table
     //##############################################
