@@ -53,19 +53,19 @@ block content
         //calculate more R1 variables
         R1dur = (R1dur/60).toFixed(2)
         R1uptime = ( 100*(R1planSum - R1dur) / R1planSum ).toFixed(2)
-        R1MTTR = (R1planSum/R1numEvents).toFixed(2)
+        R1MTTR = (R1dur/R1numEvents).toFixed(2)
         R1MTBF = ((R1planSum - R1dur)/R1numEvents).toFixed(2)
         R1MTTF = (R1planSum/R1numEvents).toFixed(2)
         //calculate more R3 variables
         R3dur = (R3dur/60).toFixed(2)
         R3uptime = ( 100*(R3planSum - R3dur) / R3planSum ).toFixed(2)
-        R3MTTR = (R3planSum/R3numEvents).toFixed(2)
+        R3MTTR = (R3dur/R3numEvents).toFixed(2)
         R3MTBF = ((R3planSum - R3dur)/R3numEvents).toFixed(2)
         R3MTTF = (R3planSum/R3numEvents).toFixed(2)
         //calculate more SPF R1 variables
         SPFdur = (SPFdur/60).toFixed(2)
         SPFuptime = ( 100*(SPFplanSum -SPFdur) /SPFplanSum ).toFixed(2)
-        SPFMTTR = (SPFplanSum/SPFnumEvents).toFixed(2)
+        SPFMTTR = (SPFdur/SPFnumEvents).toFixed(2)
         SPFMTBF = ((SPFplanSum -SPFdur)/SPFnumEvents).toFixed(2)
         SPFMTTF = (SPFplanSum/SPFnumEvents).toFixed(2)
         //R1 elements to span
