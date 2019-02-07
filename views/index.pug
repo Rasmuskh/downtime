@@ -32,10 +32,11 @@ block content
         //
         deliveryplans.forEach(sch => {
           date_deliv = new Date(sch.date);
-          if ( (date_deliv >= minDate) && (date_deliv <= maxDate) )
+          if ( (date_deliv >= minDate) && (date_deliv <= maxDate) ){
             R1planSum += sch.R1plan;
             R3planSum += sch.R3plan;
             SPFplanSum += sch.SPFplan;
+            }
         }),
         downtimeevents.forEach(dt => {
           date_down = new Date(dt.date);
