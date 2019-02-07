@@ -139,7 +139,7 @@ block content
       -webkit-transition-duration: 0.75s; /* safari */
       transition-duration: 0.75s;
       }
-      body
+  body(onload='pr()')
     <br>
     center
       h2(align='center') Downtime Index
@@ -337,7 +337,7 @@ block content
       border-spacing: 10px;
       }
     //the filter table
-    table(frame='hsides',style='width:100%')#filtertable
+    table(frame='above',style='width:100%')#filtertable
       tbody
         tr
           td Min duration(min):
@@ -345,7 +345,7 @@ block content
             input#mindur(name='mindur', type='number', value=0, min=0, step=1)
           td Min date:
           td
-            input#mindate(name='mindate', type='date', value='2018-01-01')
+            input#mindate(name='mindate', type='date', value='2018-01-01', oninput='pr()')
           td Min time:
           td
             input#mintime(name='mintime', type='string', value='00:00')
@@ -355,66 +355,63 @@ block content
             input#maxdur(name='maxdur', type='number',value=999, min=0, step=1)
           td Max date:
           td
-            input#maxdate(name='maxdate', type='date', value='2019-12-31')
+            input#maxdate(name='maxdate', type='date', value='2019-12-31', oninput='pr()')
           td max time
           td
             input#maxtime(name='maxtime', type='string', value='23:59')
-    <br>
-    form(action='PayslipServlet', method='get')
-      |
-      table(style='width:100%', border='1')
-        tr
-          th Machine
-          th Planned delivery (h)
-          th total downtime (h)
-          th uptime (%)
-          th MTTR (h)
-          th MTTF (h)
-          th MTBF (h)
-        tr
-          th R1
-          td
-            span#R1planSum
-          td
-            span#R1dur
-          td
-            span#R1uptime
-          td
-            span#R1MTTR
-          td
-            span#R1MTTF
-          td
-            span#R1MTBF
-        tr
-          th R3
-          td
-            span#R3planSum
-          td
-            span#R3dur
-          td
-            span#R3uptime
-          td
-            span#R3MTTR
-          td
-            span#R3MTTF
-          td
-            span#R3MTBF
-          tr
-            th SPF
-            td
-              span#SPFplanSum
-            td
-              span#SPFdur
-            td
-              span#SPFuptime
-            td
-              span#SPFMTTR
-            td
-              span#SPFMTTF
-            td
-              span#SPFMTBF
-      br
-      input(type='button', value='Generate statistics', onclick='pr()')
+    br
+    table(frame='below', style='width:100%')
+      tr
+        th Machine
+        th Planned delivery (h)
+        th total downtime (h)
+        th uptime (%)
+        th MTTR (h)
+        th MTTF (h)
+        th MTBF (h)
+      tr
+        th R1
+        td
+          span#R1planSum
+        td
+          span#R1dur
+        td
+          span#R1uptime
+        td
+          span#R1MTTR
+        td
+          span#R1MTTF
+        td
+          span#R1MTBF
+      tr
+        th R3
+        td
+          span#R3planSum
+        td
+          span#R3dur
+        td
+          span#R3uptime
+        td
+          span#R3MTTR
+        td
+          span#R3MTTF
+        td
+          span#R3MTBF
+      tr
+        th SPF
+        td
+          span#SPFplanSum
+        td
+          span#SPFdur
+        td
+          span#SPFuptime
+        td
+          span#SPFMTTR
+        td
+          span#SPFMTTF
+        td
+          span#SPFMTBF
+
     //##############################################
     //The downtime event table
     //##############################################
