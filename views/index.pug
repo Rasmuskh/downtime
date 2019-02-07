@@ -32,23 +32,27 @@ block content
         //
         deliveryplans.forEach(sch => {
           date_deliv = new Date(sch.date);
-          if ( (date_deliv >= minDate) && (date_deliv <= maxDate) )
+          if ( (date_deliv >= minDate) && (date_deliv <= maxDate) ){
             R1planSum += sch.R1plan;
             R3planSum += sch.R3plan;
             SPFplanSum += sch.SPFplan;
+            }
         }),
         downtimeevents.forEach(dt => {
           date_down = new Date(dt.date);
           if ( (date_down >= minDate) && (date_down <= maxDate) ){
-            if ( dt.machine == 'R1')
+            if ( dt.machine == 'R1'){
               R1dur += dt.duration;
               R1numEvents += 1
-            if ( dt.machine == 'R3')
+              }
+            if ( dt.machine == 'R3'){
               R3dur += dt.duration;
               R3numEvents += 1
-            if ( dt.machine == 'I')
+              }
+            if ( dt.machine == 'I'){
               SPFdur += dt.duration;
               SPFnumEvents += 1
+              }
           }
         }),
         //calculate more R1 variables
@@ -345,17 +349,17 @@ block content
             input#mindur(name='mindur', type='number', value=0, min=0, step=1)
           td Min date:
           td
-            input#mindate(name='mindate', type='date', value='2018-01-01', oninput='pr()')
+            input#mindate(name='mindate', type='date', value='2019-01-01', oninput='pr()')
           td Min time:
           td
             input#mintime(name='mintime', type='string', value='00:00')
         tr
           td Max duration(min):
           td
-            input#maxdur(name='maxdur', type='number',value=999, min=0, step=1)
+            input#maxdur(name='maxdur', type='number',value=999999, min=0, step=1)
           td Max date:
           td
-            input#maxdate(name='maxdate', type='date', value='2019-12-31', oninput='pr()')
+            input#maxdate(name='maxdate', type='date', value='2099-12-31', oninput='pr()')
           td max time
           td
             input#maxtime(name='maxtime', type='string', value='23:59')
