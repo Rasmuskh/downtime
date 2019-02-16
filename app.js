@@ -138,11 +138,21 @@ app.post('/schedule/submit',function(req, res){
     });
 });
 
-// Edit events route
+// Edit downtimeevents route
 app.get('/downtimeevent/edit/:id', function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('edit_downtimeevent',{
             title:'Edit Downtimeevent',
+            downtimeevent:downtimeevent  
+        });
+    });
+});
+
+// Archive downtimeevents route
+app.get('/downtimeevent/archive/:id', function(req, res){
+    Downtimeevent.findById(req.params.id, function(err, downtimeevent){
+        res.render('archive_downtimeevent',{
+            title:'Archive Downtimeevent',
             downtimeevent:downtimeevent  
         });
     });
@@ -168,6 +178,22 @@ app.post('/downtimeevent/edit/:id',function(req, res){
     downtimeevent.date = req.body.date;
     downtimeevent.time = req.body.time;
     downtimeevent.duration = req.body.duration;
+
+    let query ={_id:req.params.id};
+
+    Downtimeevent.update(query, downtimeevent, function(err){
+        if(err){
+            console.log(err);
+        } else{ 
+            res.redirect('/');
+        }
+    });
+});
+
+// archive Submissions POST Route
+app.post('/downtimeevent/archive/:id',function(req, res){
+    let downtimeevent  = {}
+    downtimeevent.archived = req.body.archived;
 
     let query ={_id:req.params.id};
 

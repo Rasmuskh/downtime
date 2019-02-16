@@ -40,7 +40,7 @@ block content
         }),
         downtimeevents.forEach(dt => {
           date_down = new Date(dt.date);
-          if ( (date_down >= minDate) && (date_down <= maxDate) ){
+          if ( (date_down >= minDate) && (date_down <= maxDate) && (dt.archived != true)){
             if ( dt.machine == 'R1'){
               R1dur += dt.duration;
               R1numEvents += 1
@@ -434,24 +434,24 @@ block content
             th(width='16%') Author
       tbody
         each downtimeevent, i in downtimeevents
-          tr
-            td
-              a #{downtimeevent.description}
-            td
-              a #{downtimeevent.date}
-            td
-              a #{downtimeevent.time}
-            td
-              a(href="/downtimeevent/"+downtimeevent._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{downtimeevent.date}, #{downtimeevent.time}</button>
-            td
-              a #{downtimeevent.code}
-            td
-              a #{downtimeevent.machine}
-
-            td
-              a #{downtimeevent.duration}
-            td
-              a #{downtimeevent.operator}
+          if(downtimeevent.archived != true)
+            tr
+              td
+                a #{downtimeevent.description}
+              td
+                a #{downtimeevent.date}
+              td
+                a #{downtimeevent.time}
+              td
+                a(href="/downtimeevent/"+downtimeevent._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{downtimeevent.date}, #{downtimeevent.time}</button>
+              td
+                a #{downtimeevent.code}
+              td
+                a #{downtimeevent.machine}
+              td
+                a #{downtimeevent.duration}
+              td
+                a #{downtimeevent.operator}
       tfoot
         tr
           th

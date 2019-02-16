@@ -37,12 +37,10 @@ block content
 
     hr
     a.btn.btn-warning(href='/downtimeevent/edit/'+downtimeevent._id) Edit
-    a.btn.btn-danger.delete-downtimeevent(href='#',data-id=downtimeevent._id) Delete
+    a.btn.btn-danger(href='/downtimeevent/archive/'+downtimeevent._id) Archive
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
-  //the script below allows the deletion of events.
-  script(src='/js/del_downtime.js')
   script.
     $(document).ready( function () {
     $('#detailedview').DataTable({
