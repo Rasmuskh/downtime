@@ -6,16 +6,9 @@ block content
     h2(align='center') #{title}
     form(method='POST',action='/downtimeevent/archive/'+downtimeevent.id, onsubmit="return confirm('Do you really wish to archive this downtime event?');")
       #form-group
-      //-   select(name='archived', required)
-      //-     option(selected='selected') 
-      //-     |
-      //-     option(value=1) true
-      //-     |
-      //-     option(value=0) false
-      //- br
-      input(type='checkbox', name='archived', required = true, value=1)
-      |  Archive downtime event
-      br
-      br
-      input.btn.btn-danger.btn-lg(type='submit',value='Archive')
-      a.btn.btn-primary.btn-lg(href='/') Cancel
+        input(type='checkbox', name='archived', required = true, value=1)
+        |  Archive downtime event
+        br
+        br
+        a.btn.btn-primary(href='/') Cancel
+        input.btn.btn-danger(type='submit',value='Confirm')
