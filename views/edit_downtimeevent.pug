@@ -8,7 +8,7 @@ block content
       label code
       #form-group
         select(name='code', required)
-          option(selected='selected', value=downtimeevent.code)= downtimeevent.code
+          option(selected='selected', disabled='disabled') Select downtime code
           |
           option(value='B') B: Beamlines
           |
@@ -20,11 +20,15 @@ block content
           |
           option(value='HE') HE: Human Error
           |
+          option(value='HLS') HLS: High Level Software (SPF only)
+          |
           option(value='I') I: Linac/Injector
           |
           option(value='ID') ID: Insertion Devices
           |
           option(value='INF') INF: Infrastructure
+          |
+          option(value='LAS') LAS: Laser (SPF only)
           |
           option(value='MAG') MAG: Magnet (powersupplies)
           |
@@ -43,8 +47,10 @@ block content
           option(value='PSS') PSS: Personel Safety System
           |
           option(value='RF') RF: Radio Frequency
-          |          
+          |
           option(value='UI') UI: Unscheduled Injection to rings (SPF only)
+          |
+          option(value='UT') UT: Unplanned Trimming (SPF only)
           |
           option(value='VAC') VAC: Vacuum
           |

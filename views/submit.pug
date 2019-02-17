@@ -20,11 +20,15 @@ block content
           |
           option(value='HE') HE: Human Error
           |
+          option(value='HLS') HLS: High Level Software (SPF only)
+          |
           option(value='I') I: Linac/Injector
           |
           option(value='ID') ID: Insertion Devices
           |
           option(value='INF') INF: Infrastructure
+          |
+          option(value='LAS') LAS: Laser (SPF only)
           |
           option(value='MAG') MAG: Magnet (powersupplies)
           |
@@ -43,15 +47,17 @@ block content
           option(value='PSS') PSS: Personel Safety System
           |
           option(value='RF') RF: Radio Frequency
-          |          
+          |
           option(value='UI') UI: Unscheduled Injection to rings (SPF only)
+          |
+          option(value='UT') UT: Unplanned Trimming (SPF only)
           |
           option(value='VAC') VAC: Vacuum
           |
           option(value='WAT') WAT: Water
           |
           option(value='WD') WD: Watchdog
-        
+
       label Machine 
       #form-group
         select(name='machine', required)
