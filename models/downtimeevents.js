@@ -29,6 +29,11 @@ let downtimeeventSchema= mongoose.Schema({
     duration:{
         type:Number,
         required: false
+    },
+    archived:{
+        type: Boolean,
+        default: false,
+        required: false
     }
 });
 
