@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+  .container
+    //##############################################
+    //The downtime event table
+    //##############################################
+    center
+      h4 Table of archived events
+    table#archiveTable.display(style='width:100%').compact
+      thead
+          tr
+            th(width='0') Description
+            th(width='16%') Date
+            th(width='16%') Time
+            th(width='16%') Timestamp/Link
+            th(width='16%') Code
+            th(width='16%') Machine
+            th(width='16%') Duration (minutes)
+            th(width='16%') Author
+      tbody
+        each downtimeevent, i in downtimeevents
+          if(downtimeevent.archived == true)
+            tr
+              td
+                a #{downtimeevent.description}
+              td
+                a #{downtimeevent.date}
+              td
+                a #{downtimeevent.time}
+              td
+                a(href="/downtimeevent/"+downtimeevent._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{downtimeevent.date}, #{downtimeevent.time}</button>
+              td
+                a #{downtimeevent.code}
+              td
+                a #{downtimeevent.machine}
+              td
+                a #{downtimeevent.duration}
+              td
+                a #{downtimeevent.operator}
+      tfoot
+        tr
+          th
+          th
+          th
+          th
+          th
+          th
+          th
+          th
+    <br>
+
+    //##############################################
+    //datatable and highcharts scripts
+    //##############################################
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+    script.
+      $(document).ready( function () {
+      $('#archiveTable').DataTable({
+      });
+      } );
+

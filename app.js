@@ -52,16 +52,25 @@ app.get('/',function(req, res){
             if(err){
                 console.log(err);
             } else{
-                console.log("DELIVERYPLANS:");
-                console.log(deliveryplans);
-                console.log("DOWNTIMEEVENTS:");
-                console.log(downtimeevents);
                 res.render('index',{
                     downtimeevents:downtimeevents,
                     deliveryplans:deliveryplans,
                 });
             }
         });
+    });
+});
+
+// Archived events Route
+app.get('/archive',function(req, res){
+    Downtimeevent.find({}, function(err,downtimeevents){
+        if(err){
+            console.log(err);
+        } else{
+            res.render('archive',{
+                downtimeevents:downtimeevents
+            });
+        }
     });
 });
 
@@ -74,7 +83,7 @@ app.get('/schedule',function(req, res){
             res.render('schedule',{
                 deliveryplans:deliveryplans
             });
-        };
+        }
     });
 });
 
@@ -225,16 +234,6 @@ app.post('/schedule/edit/:id',function(req, res){
     });
 });
 
-app.delete('/downtimeevent/:id', function(req, res){
-    let query = {_id:req.params.id};
-
-    Downtimeevent.remove(query, function(err){
-        if(err){
-            console.log(err);
-        }
-        res.send('Success');
-    });
-});
 app.delete('/schedule/edit/:id', function(req, res){
     let query = {_id:req.params.id};
 
