@@ -97,17 +97,23 @@ block content
       }
 
 
-
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     style.
       * {
         box-sizing: border-box;
         }
         /* Create two equal columns that floats next to each other */
-        .column {
+        .columnButton {
         float: left;
-        width: 50%;
+        width: 28%;
         padding: 10px;
-        height: 630px; /* Should be removed. Only for demonstration */
+        height: 630px;
+        }
+        .columnPie {
+        float: left;
+        width: 72%;
+        padding: 10px;
+        height: 630px;
         }
         /* Clear floats after the columns */
         .row:after {
@@ -115,6 +121,16 @@ block content
         display: table;
         clear: both;
         }
+        /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 1200px) {
+        .columnButton {
+        width: 100%;
+        }
+        .columnPie {
+        width: 100%;
+        }
+        }
+
     style.
       .custombutton {
       cursor:pointer;
@@ -149,117 +165,118 @@ block content
       h2(align='center') Downtime Index
       <br>
       .row
-          .column(style="width:28%")
-            h4 Toggle machines
-            |
-            table#buttontable.display(style='width:100%')
-              tbody
-                tr
-                  td
-                    center
-                      button.togglebutton(value=1, onclick='click_machine(id)')#All_button Toggle all
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_machine(id)')#I_button SPF
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_machine(id)')#R1_button R1
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_machine(id)')#R3_button R3
-            |
-            h4 Toggle event codes
-            |
-            table#codetable.display(style='width:100%')
-              tbody
-                tr
-                  td
-                    center
-                      button.togglebutton(value=1, onclick='click_code(id)')#Allcodes_button Toggle all
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#Bcode_button B
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#BIcode_button BI
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#CTcode_button CT
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#DIAcode_button DIA
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#HEcode_button HE
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#HLScode_button HLS
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#Icode_button I
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#IDcode_button ID
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#INFcode_button INF
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#LAScode_button LAS
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#MAGcode_button MAG
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#MMLcode_button MML
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#MPScode_button MPS
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#NETcode_button NET
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#OIcode_button OI
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#OTcode_button OT
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#PLCcode_button PLC
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#PSScode_button PSS
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#RFcode_button RF
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#UIcode_button UI
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#UTcode_button UT
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#VACcode_button VAC
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#WATcode_button WAT
-                tr
-                  td
-                    center
-                      button.custombutton(value=1, onclick='click_code(id)')#WDcode_button WD
-
+        .columnButton
+          h4 Toggle machines
           |
-          .column(style="width:72%")
-            h4 Downtime distribution
-            |
-            #container(style='min-width: 300px; height: 500px; max-width: 800px; margin: 0 auto')
+          table#buttontable.display(style='width:100%')
+            tbody
+              tr
+                td
+                  center
+                    button.togglebutton(value=1, onclick='click_machine(id)')#All_button Toggle all
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_machine(id)')#I_button SPF
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_machine(id)')#R1_button R1
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_machine(id)')#R3_button R3
+          |
+          h4 Toggle event codes
+          |
+          table#codetable.display(style='width:100%')
+            tbody
+              tr
+                td
+                  center
+                    button.togglebutton(value=1, onclick='click_code(id)')#Allcodes_button Toggle all
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#Bcode_button B
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#BIcode_button BI
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#CTcode_button CT
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#DIAcode_button DIA
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#HEcode_button HE
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#HLScode_button HLS
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#Icode_button I
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#IDcode_button ID
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#INFcode_button INF
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#LAScode_button LAS
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#MAGcode_button MAG
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#MMLcode_button MML
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#MPScode_button MPS
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#NETcode_button NET
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#OIcode_button OI
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#OTcode_button OT
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#PLCcode_button PLC
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#PSScode_button PSS
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#RFcode_button RF
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#UIcode_button UI
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#UTcode_button UT
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#VACcode_button VAC
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#WATcode_button WAT
+              tr
+                td
+                  center
+                    button.custombutton(value=1, onclick='click_code(id)')#WDcode_button WD
+
+        |
+        .columnPie
+          h4 Downtime distribution
+          |
+          #container
+          //(style='min-width: 300px; height: 625px; max-width: 800px; margin: 0 auto')
 
     br
     //##############################################
@@ -573,7 +590,7 @@ block content
       $(function () {
       chart = new Highcharts.Chart({
         chart: {
-            //height: 500,
+            height: 600,
             renderTo: 'container',
             plotBackgroundColor: null,
             plotBorderWidth: null,
