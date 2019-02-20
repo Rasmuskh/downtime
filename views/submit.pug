@@ -4,7 +4,7 @@ extends layout
 block content
   .container
     h2(align='center') #{title}
-    form(method='POST',action='/submit')
+    form(method='POST',action='/submit', onsubmit="return confirm('Remember to notify the relevant sub-system owner!');")
       label code
       #form-group
         select(name='code', required)
