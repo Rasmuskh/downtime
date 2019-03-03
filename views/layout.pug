@@ -40,7 +40,7 @@ html
         li
           a(href='/schedule') Schedule
         li
-          a(href='/submit') Submit
+          a(href='/downtimeevent/submit') Submit downtime
         li
           a(href='/about') About
       div(style='padding:5px;margin-top:0px;background-color:#66ccff;height:0px;')
@@ -48,6 +48,11 @@ html
 
 
     .container
+      br
+      != messages('message', locals)
+      if errors
+        each error, i in errors
+          div(class="alert-danger") #{error.msg}
       block content
 
       br

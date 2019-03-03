@@ -4,10 +4,10 @@ extends layout
 block content
   .container
     h2(align='center') #{title}
-    form(method='POST',action='/submit', onsubmit="return confirm('Remember to notify the relevant sub-system owner!');")
+    form(method='POST',action='/downtimeevent/submit', onsubmit="return confirm('Remember to notify the relevant sub-system owner!');")
       label code
       #form-group
-        select(name='code', required)
+        select(name='code')
           option(selected='selected', disabled='disabled') Select downtime code
           |
           option(value='B') B: Beamlines
@@ -60,7 +60,7 @@ block content
 
       label Machine 
       #form-group
-        select(name='machine', required)
+        select(name='machine')
           option(selected='selected', disabled='disabled') Select machine
           |
           option(value='I') I
@@ -76,13 +76,13 @@ block content
         textarea.form-control(name='description')
       #form-group
         label Date:
-        input.form-control(name='date', type='date', value='YYYY-MM-DD',pattern='(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',required)
+        input.form-control(name='date', type='date', value='YYYY-MM-DD',pattern='(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))')
       #form-group
         label Time:
-        input.form-control(name='time', type='text', value='HH:MM', pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}', required)
+        input.form-control(name='time', type='text', value='HH:MM', pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}')
 
       #form-group
         label Duration (minutes):
-        input.form-control(name='duration', type='number', step=1, min=0, required)
+        input.form-control(name='duration', type='number', step=1, min=0)
       br
       input.btn.btn-primary.btn-lg(type='submit',value='Submit')

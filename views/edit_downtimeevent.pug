@@ -8,7 +8,7 @@ block content
       label code
       #form-group
         select(name='code', required)
-          option(selected='selected', disabled='disabled')= downtimeevent.code
+          option(selected='selected')= downtimeevent.code
           |
           option(value='B') B: Beamlines
           |
@@ -59,7 +59,7 @@ block content
           option(value='WD') WD: Watchdog
       label Machine 
       #form-group
-        select(name='machine', required)
+        select(name='machine')
           option(selected='selected', value=downtimeevent.machine)= downtimeevent.machine
           |
           option(value='I') I
@@ -75,12 +75,12 @@ block content
         textarea.form-control(name='description')= downtimeevent.description
       #form-group
         label Date:
-        input.form-control(name='date', type='date',value=downtimeevent.date,pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))", required)#date
+        input.form-control(name='date', type='date',value=downtimeevent.date,pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))")#date
       #form-group
         label Time:
-        input.form-control(name='time', type='text',value=downtimeevent.time, pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}', required)#time
+        input.form-control(name='time', type='text',value=downtimeevent.time, pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}')#time
       #form-group
         label Duration (minutes):
-        input.form-control(name='duration', type='number', step=1, min=0, value=downtimeevent.duration, required)
+        input.form-control(name='duration', type='number', step=1, min=0, value=downtimeevent.duration)
       br
       input.btn.btn-primary.btn-lg(type='submit',value='Submit')

@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser=require('body-parser');
-
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 const dbURL =  process.env.DBURL || "mongodb://localhost/maxivkb";
 mongoose.connect(dbURL);
@@ -39,6 +41,38 @@ app.use(bodyParser.json());
 
 // Set Public Folder
 app.use(express.static(path.join(__dirname,'public')));
+
+//Express Session Middleware
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+ }));
+
+//Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
+//Express Validator Middleware
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root = namespace.shift()
+        , formParam = root;
+
+        while(namespace.lengh) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg : msg,
+            value : value
+        };
+    }
+}));
 
 // Home Route
 app.get('/',function(req, res){
@@ -88,7 +122,7 @@ app.get('/schedule',function(req, res){
 });
 
 // Single event Route
-app.get('/downtimeevent/:id', function(req, res){
+app.get('/downtimeevent/id/:id', function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('downtimeevent',{
             downtimeevent:downtimeevent  
@@ -97,10 +131,47 @@ app.get('/downtimeevent/:id', function(req, res){
 });
 
 //Add submit downtime event Route
-app.get('/submit',function(req, res){
+app.get('/downtimeevent/submit',function(req, res){
     res.render('submit', {
         title: 'Submit entry',
     });
+});
+
+// Add Submit POST Route
+app.post('/downtimeevent/submit',function(req, res){
+    req.checkBody('code', 'Event code is required').notEmpty();
+    req.checkBody('machine', 'Machine is required').notEmpty();
+    req.checkBody('operator', 'Reported by is required').notEmpty();
+    req.checkBody('description', 'Description is required').notEmpty();
+    req.checkBody('date', 'Date is required').notEmpty();
+    req.checkBody('time', 'Time is required').notEmpty();
+    req.checkBody('duration', 'Duration is required').notEmpty();
+    //Get errors
+    let errors = req.validationErrors();
+    if(errors){
+        res.render('submit', {
+            title:'Submit entry',
+            errors:errors
+        })
+    } else { 
+        let downtimeevent = new Downtimeevent();
+        downtimeevent.code = req.body.code;
+        downtimeevent.operator = req.body.operator;
+        downtimeevent.description = req.body.description;
+        downtimeevent.machine = req.body.machine;
+        downtimeevent.date = req.body.date;
+        downtimeevent.time = req.body.time;
+        downtimeevent.duration = req.body.duration;
+
+        downtimeevent.save(function(err){
+            if(err){
+                console.log(err);
+            } else{
+                req.flash('success', 'Downtimeevent added to database');
+                res.redirect('/');
+            }
+        });
+    }
 });
 
 //Add submit deliveryplan Route
@@ -110,25 +181,6 @@ app.get('/schedule/submit',function(req, res){
     });
 });
 
-// Add Submit POST Route
-app.post('/submit',function(req, res){
-    let downtimeevent = new Downtimeevent();
-    downtimeevent.code = req.body.code;
-    downtimeevent.operator = req.body.operator;
-    downtimeevent.description = req.body.description;
-    downtimeevent.machine = req.body.machine;
-    downtimeevent.date = req.body.date;
-    downtimeevent.time = req.body.time;
-    downtimeevent.duration = req.body.duration;
-
-    downtimeevent.save(function(err){
-        if(err){
-            console.log(err);
-        } else{
-            res.redirect('/');
-        }
-    });
-});
 
 // Add submit deliveryplan POST Route
 app.post('/schedule/submit',function(req, res){
@@ -193,7 +245,8 @@ app.post('/downtimeevent/edit/:id',function(req, res){
     Downtimeevent.update(query, downtimeevent, function(err){
         if(err){
             console.log(err);
-        } else{ 
+        } else{
+            req.flash('success', 'Downtimeevent updated')
             res.redirect('/');
         }
     });
