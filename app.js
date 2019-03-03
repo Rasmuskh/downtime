@@ -73,7 +73,7 @@ app.use(expressValidator({
         };
     }
 }));
-
+//====================================
 // Home Route
 app.get('/',function(req, res){
     //Make downtime collection accessible
@@ -95,6 +95,7 @@ app.get('/',function(req, res){
     });
 });
 
+//====================================
 // Archived events Route
 app.get('/archive',function(req, res){
     Downtimeevent.find({}, function(err,downtimeevents){
@@ -108,6 +109,7 @@ app.get('/archive',function(req, res){
     });
 });
 
+//====================================
 //delivery plan Route
 app.get('/schedule',function(req, res){
     Deliveryplan.find({}, function(err,deliveryplans){
@@ -121,58 +123,6 @@ app.get('/schedule',function(req, res){
     });
 });
 
-// Single event Route
-app.get('/downtimeevent/id/:id', function(req, res){
-    Downtimeevent.findById(req.params.id, function(err, downtimeevent){
-        res.render('downtimeevent',{
-            downtimeevent:downtimeevent  
-        });
-    });
-});
-
-//Add submit downtime event Route
-app.get('/downtimeevent/submit',function(req, res){
-    res.render('submit', {
-        title: 'Submit entry',
-    });
-});
-
-// Add Submit POST Route
-app.post('/downtimeevent/submit',function(req, res){
-    req.checkBody('code', 'Event code is required').notEmpty();
-    req.checkBody('machine', 'Machine is required').notEmpty();
-    req.checkBody('operator', 'Reported by is required').notEmpty();
-    req.checkBody('description', 'Description is required').notEmpty();
-    req.checkBody('date', 'Date is required').notEmpty();
-    req.checkBody('time', 'Time is required').notEmpty();
-    req.checkBody('duration', 'Duration is required').notEmpty();
-    //Get errors
-    let errors = req.validationErrors();
-    if(errors){
-        res.render('submit', {
-            title:'Submit entry',
-            errors:errors
-        })
-    } else { 
-        let downtimeevent = new Downtimeevent();
-        downtimeevent.code = req.body.code;
-        downtimeevent.operator = req.body.operator;
-        downtimeevent.description = req.body.description;
-        downtimeevent.machine = req.body.machine;
-        downtimeevent.date = req.body.date;
-        downtimeevent.time = req.body.time;
-        downtimeevent.duration = req.body.duration;
-
-        downtimeevent.save(function(err){
-            if(err){
-                console.log(err);
-            } else{
-                req.flash('success', 'Downtimeevent added to database');
-                res.redirect('/');
-            }
-        });
-    }
-});
 
 //Add submit deliveryplan Route
 app.get('/schedule/submit',function(req, res){
@@ -199,26 +149,6 @@ app.post('/schedule/submit',function(req, res){
     });
 });
 
-// Edit downtimeevents route
-app.get('/downtimeevent/edit/:id', function(req, res){
-    Downtimeevent.findById(req.params.id, function(err, downtimeevent){
-        res.render('edit_downtimeevent',{
-            title:'Edit Downtimeevent',
-            downtimeevent:downtimeevent  
-        });
-    });
-});
-
-// Archive downtimeevents route
-app.get('/downtimeevent/archive/:id', function(req, res){
-    Downtimeevent.findById(req.params.id, function(err, downtimeevent){
-        res.render('archive_downtimeevent',{
-            title:'Archive Downtimeevent',
-            downtimeevent:downtimeevent  
-        });
-    });
-});
-
 // Edit deliveryplan route
 app.get('/schedule/edit/:id', function(req, res){
     Deliveryplan.findById(req.params.id, function(err, deliveryplan){
@@ -229,48 +159,9 @@ app.get('/schedule/edit/:id', function(req, res){
     });
 });
 
-// update Submissions POST Route
-app.post('/downtimeevent/edit/:id',function(req, res){
-    let downtimeevent  = {}
-    downtimeevent.code = req.body.code;
-    downtimeevent.machine = req.body.machine;
-    downtimeevent.operator = req.body.operator;
-    downtimeevent.description = req.body.description;
-    downtimeevent.date = req.body.date;
-    downtimeevent.time = req.body.time;
-    downtimeevent.duration = req.body.duration;
-
-    let query ={_id:req.params.id};
-
-    Downtimeevent.update(query, downtimeevent, function(err){
-        if(err){
-            console.log(err);
-        } else{
-            req.flash('success', 'Downtimeevent updated')
-            res.redirect('/');
-        }
-    });
-});
-
-// archive Submissions POST Route
-app.post('/downtimeevent/archive/:id',function(req, res){
-    let downtimeevent  = {}
-    downtimeevent.archived = req.body.archived;
-
-    let query ={_id:req.params.id};
-
-    Downtimeevent.update(query, downtimeevent, function(err){
-        if(err){
-            console.log(err);
-        } else{ 
-            res.redirect('/');
-        }
-    });
-});
-
 // update deliveryplan POST Route
 app.post('/schedule/edit/:id',function(req, res){
-    let deliveryplan  = {}
+    let deliveryplan  = {};
     deliveryplan.date = req.body.date;
     deliveryplan.R1plan = req.body.R1plan;
     deliveryplan.R3plan = req.body.R3plan;
@@ -287,6 +178,7 @@ app.post('/schedule/edit/:id',function(req, res){
     });
 });
 
+// delete deliveryplan route
 app.delete('/schedule/edit/:id', function(req, res){
     let query = {_id:req.params.id};
 
@@ -298,7 +190,7 @@ app.delete('/schedule/edit/:id', function(req, res){
     });
 });
 
-
+//====================================
 //Add About Route
 app.get('/about',function(req, res){
     res.render('about', {
@@ -306,7 +198,12 @@ app.get('/about',function(req, res){
     });
 });
 
+//====================================
+// Route files
+let downtimeevents = require('./routes/downtimeevent');
+app.use('/downtimeevent', downtimeevents);
 
+//====================================
 //start server
 const port = process.env.PORT || 8504;
 app.listen(port, function(){
