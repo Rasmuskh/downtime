@@ -79,7 +79,8 @@ block content
         input.form-control(name='date', type='date', value='YYYY-MM-DD',pattern='(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))')
       #form-group
         label Time:
-        input.form-control(name='time', type='text', value='HH:MM', pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}')
+        input.form-control(name='time', type='text', value='HH:MM')
+        //, pattern='([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}')
 
       #form-group
         label Duration (minutes):

@@ -5,9 +5,11 @@ const bodyParser=require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database');
+//const dbURL =  process.env.DBURL || "mongodb://localhost/maxivkb";
 
-const dbURL =  process.env.DBURL || "mongodb://localhost/maxivkb";
-mongoose.connect(dbURL);
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
 
@@ -29,7 +31,7 @@ const app = express();
 let Downtimeevent = require('./models/downtimeevents');
 let Deliveryplan = require('./models/deliveryplans');
 
-// Load view engine
+// Load view enginec  
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -73,6 +75,20 @@ app.use(expressValidator({
         };
     }
 }));
+
+// Passport Config
+require('./config/passport')(passport);
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', function(req, res, next){
+    res.locals.user = req.user || null;
+    next();
+});
+
+
+
 //====================================
 // Home Route
 app.get('/',function(req, res){
@@ -201,7 +217,9 @@ app.get('/about',function(req, res){
 //====================================
 // Route files
 let downtimeevents = require('./routes/downtimeevent');
+let users = require('./routes/user');
 app.use('/downtimeevent', downtimeevents);
+app.use('/user', users);
 
 //====================================
 //start server

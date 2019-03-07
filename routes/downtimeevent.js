@@ -48,7 +48,8 @@ router.post('/submit',function(req, res){
     req.checkBody('operator', 'Reported by is required').notEmpty();
     req.checkBody('description', 'Description is required').notEmpty();
     req.checkBody('date', 'Date is required').notEmpty();
-    req.checkBody('time', 'Time is required').notEmpty();
+    //req.checkBody('time', 'Time is required').notEmpty();
+    req.checkBody('time', 'Time is required').matches('([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}');
     req.checkBody('duration', 'Duration is required').notEmpty();
     //Get errors
     let errors = req.validationErrors();

@@ -5,7 +5,8 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=yes')
     title DowntimeApp
-    link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css', type='text/css')
+
 
   .container
     head
@@ -34,15 +35,25 @@ html
         color: white;
         text-decoration: none;
         }
-      ul
-        li
-          a(href='/') Downtime Index
-        li
-          a(href='/schedule') Schedule
-        li
-          a(href='/downtimeevent/submit') Submit downtime
-        li
-          a(href='/about') About
+      div
+        ul
+          li
+            a(href='/') Downtime Index
+          li
+            a(href='/schedule') Schedule
+          li
+            a(href='/downtimeevent/submit') Submit downtime
+            if user
+              li
+                a(href='user/logout') Logout
+            else
+              li
+                a(href='/user/register') Register
+              li
+                a(href='/user/login') Login
+
+          li
+            a(href='/about') About
       div(style='padding:5px;margin-top:0px;background-color:#66ccff;height:0px;')
 
 
