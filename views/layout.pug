@@ -39,18 +39,19 @@ html
         ul
           li
             a(href='/') Downtime Index
-          li
-            a(href='/schedule') Schedule
-          li
-            a(href='/downtimeevent/submit') Submit downtime
-            if user
-              li
-                a(href='user/logout') Logout
-            else
-              li
-                a(href='/user/register') Register
-              li
-                a(href='/user/login') Login
+          if user
+            li
+              a(href='/schedule') Schedule
+            li
+              a(href='/downtimeevent/submit') Submit downtime
+          if user
+            li
+              a(href='user/logout') Logout
+          else
+            li
+              a(href='/user/register') Register
+            li
+              a(href='/user/login') Login
 
           li
             a(href='/about') About

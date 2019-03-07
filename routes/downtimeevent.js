@@ -14,7 +14,7 @@ router.get('/id/:id', function(req, res){
 });
 
 //Add submit downtime event Route
-router.get('/submit',function(req, res){
+router.get('/submit', ensureAuthenticated, function(req, res){
     res.render('submit', {
         title: 'Submit entry',
     });
@@ -22,7 +22,7 @@ router.get('/submit',function(req, res){
 
 
 // Edit downtimeevents route
-router.get('/edit/:id', function(req, res){
+router.get('/edit/:id', ensureAuthenticated, function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('edit_downtimeevent',{
             title:'Edit Downtimeevent',
@@ -32,7 +32,7 @@ router.get('/edit/:id', function(req, res){
 });
 
 // Archive downtimeevents route
-router.get('/archive/:id', function(req, res){
+router.get('/archive/:id', ensureAuthenticated, function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('archive_downtimeevent',{
             title:'Archive Downtimeevent',
@@ -42,14 +42,14 @@ router.get('/archive/:id', function(req, res){
 });
 
 // Add Submit POST Route
-router.post('/submit',function(req, res){
+router.post('/submit', ensureAuthenticated, function(req, res){
     req.checkBody('code', 'Event code is required').notEmpty();
     req.checkBody('machine', 'Machine is required').notEmpty();
     req.checkBody('operator', 'Reported by is required').notEmpty();
     req.checkBody('description', 'Description is required').notEmpty();
-    req.checkBody('date', 'Date is required').notEmpty();
+    req.checkBody('date', 'Date is required (format YYYY-MM-DD)').notEmpty();
     //req.checkBody('time', 'Time is required').notEmpty();
-    req.checkBody('time', 'Time is required').matches('([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}');
+    req.checkBody('time', 'Time is required (format HH:MM)').matches('([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}');
     req.checkBody('duration', 'Duration is required').notEmpty();
     //Get errors
     let errors = req.validationErrors();
@@ -80,7 +80,7 @@ router.post('/submit',function(req, res){
 });
 
 // update Submissions POST Route
-router.post('/edit/:id',function(req, res){
+router.post('/edit/:id', ensureAuthenticated, function(req, res){
     let downtimeevent  = {}
     downtimeevent.code = req.body.code;
     downtimeevent.machine = req.body.machine;
@@ -96,14 +96,14 @@ router.post('/edit/:id',function(req, res){
         if(err){
             console.log(err);
         } else{
-            req.flash('success', 'Downtimeevent updated')
+            req.flash('success', 'Downtimeevent updated');
             res.redirect('/');
         }
     });
 });
 
 // archive Submissions POST Route
-router.post('/archive/:id',function(req, res){
+router.post('/archive/:id', ensureAuthenticated, function(req, res){
     let downtimeevent  = {}
     downtimeevent.archived = req.body.archived;
 
@@ -113,10 +113,19 @@ router.post('/archive/:id',function(req, res){
         if(err){
             console.log(err);
         } else{
-            req.flash('danger', 'Downtimeevent archived')
+            req.flash('danger', 'Downtimeevent archived');
             res.redirect('/');
         }
     });
 });
+
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        req.flash('danger', 'Please login');
+        res.redirect('/user/login');
+    }
+}
 
 module.exports = router;
