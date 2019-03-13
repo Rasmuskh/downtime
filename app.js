@@ -127,7 +127,7 @@ app.get('/archive',function(req, res){
 
 //====================================
 //delivery plan Route
-app.get('/schedule',function(req, res){
+app.get('/schedule', ensureAuthenticated, function(req, res){
     Deliveryplan.find({}, function(err,deliveryplans){
         if(err){
             console.log(err);
@@ -141,7 +141,7 @@ app.get('/schedule',function(req, res){
 
 
 //Add submit deliveryplan Route
-app.get('/schedule/submit',function(req, res){
+app.get('/schedule/submit', ensureAuthenticated, function(req, res){
     res.render('schedule_submit', {
         title: 'Submit entry',
     });
@@ -149,7 +149,7 @@ app.get('/schedule/submit',function(req, res){
 
 
 // Add submit deliveryplan POST Route
-app.post('/schedule/submit',function(req, res){
+app.post('/schedule/submit', ensureAuthenticated, function(req, res){
     let deliveryplan = new Deliveryplan();
     deliveryplan.date = req.body.date;
     deliveryplan.R1plan = req.body.R1plan;
@@ -166,7 +166,7 @@ app.post('/schedule/submit',function(req, res){
 });
 
 // Edit deliveryplan route
-app.get('/schedule/edit/:id', function(req, res){
+app.get('/schedule/edit/:id', ensureAuthenticated, function(req, res){
     Deliveryplan.findById(req.params.id, function(err, deliveryplan){
         res.render('schedule_edit',{
             title:'Edit Deliveryplan',
@@ -176,7 +176,7 @@ app.get('/schedule/edit/:id', function(req, res){
 });
 
 // update deliveryplan POST Route
-app.post('/schedule/edit/:id',function(req, res){
+app.post('/schedule/edit/:id', ensureAuthenticated, function(req, res){
     let deliveryplan  = {};
     deliveryplan.date = req.body.date;
     deliveryplan.R1plan = req.body.R1plan;
@@ -195,7 +195,7 @@ app.post('/schedule/edit/:id',function(req, res){
 });
 
 // delete deliveryplan route
-app.delete('/schedule/edit/:id', function(req, res){
+app.delete('/schedule/edit/:id', ensureAuthenticated, function(req, res){
     let query = {_id:req.params.id};
 
     Deliveryplan.remove(query, function(err){
@@ -213,6 +213,16 @@ app.get('/about',function(req, res){
         title: 'About',
     });
 });
+
+
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        req.flash('danger', 'Please login');
+        res.redirect('/user/login');
+    }
+}
 
 //====================================
 // Route files
