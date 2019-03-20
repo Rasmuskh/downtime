@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Bring in user  model
 let User = require('../models/users');
@@ -61,26 +65,74 @@ let User = require('../models/users');
 //     }
 // });
 
-
 //Login form
-router.get('/login', function(req, res){
-    res.render('login');
+router.get('/login', function(req, res) {
+  res.render('login');
 });
 
 //Login Process
-router.post('/login', function(req, res, next){
-    passport.authenticate('local', {
-        successRedirect:'/',
-        failureRedirect:'login',
-        failureFlash: true
-    })(req, res, next);
+router.post('/login', function(req, res, next) {
+  login(req.body.username, req.body.password).then(res =>{
+    console.log("Response from login:");
+    console.log(res);
+    console.log("Response from auth:");
+    console.log(auth(res.jwtToken))
+  });
+  
+  // passport.authenticate('local', {
+  //     successRedirect:'/',
+  //     failureRedirect:'login',
+  //     failureFlash: true
+  // })(req, res, next);
 });
 
 //Logout
-router.get('/logout', function(req, res){
-    req.logout();
-    req.flash('succes', 'You have logged out');
-    res.redirect('/user/login');
+router.get('/logout', function(req, res) {
+  req.logout();
+  req.flash('succes', 'You have logged out');
+  res.redirect('/user/login');
 });
+
+/**
+ * Uses an external service to perform a AD/LDAP user authentication.
+ * Returns a promise that resolves to:
+ * {
+ *  authenticated: boolean,
+ *  jwtToken: string
+ * }
+ * The jwtToken is meant to be used to subsequent to auth, which verifies
+ * that the user is part of the 'Operator' group
+ * @param {string} username
+ * @param {string} password
+ */
+async function login(username, password) {
+  try {
+    const res = await axios.post('https://jwt-auth.maxiv.lu.se/v1/login', {
+      username: username,
+      password: password
+    });
+    jwtDecoded = jwt.verify(res.data.jwt, process.env.jwtSecret);
+    return {
+      authenticated: true,
+      jwtToken: res.data.jwt
+    };
+  } catch (err) {
+    return { 
+      authenticated: false, 
+      jwtToken: '' 
+    };
+  }
+}
+
+/**
+ * Decrypts the jwtToken and returns true iff the user belongs to the group 'Operator'
+ */
+function auth(jwtToken) {
+  try {
+    return jwt.verify(jwtToken, process.env.jwtSecret).includes('Operator');
+  } catch (e) {
+    return false;
+  }
+}
 
 module.exports = router;

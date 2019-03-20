@@ -7,7 +7,6 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
-//const dbURL =  process.env.DBURL || "mongodb://localhost/maxivkb";
 
 mongoose.connect(config.database);
 let db = mongoose.connection;
@@ -235,5 +234,5 @@ app.use('/user', users);
 //start server
 const port = process.env.PORT || 8504;
 app.listen(port, function(){
-    console.log('Server started on port ' + port + '...');
+    console.log('Server running on http://localhost:' + port);
 });
