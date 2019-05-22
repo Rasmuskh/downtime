@@ -109,7 +109,7 @@ async function login(username, password) {
   try {
     const res = await axios.post('https://jwt-auth.maxiv.lu.se/v1/login', {
       username: username,
-      password: password
+      password: password,
     });
     jwtDecoded = jwt.verify(res.data.jwt, process.env.jwtSecret);
     return {
@@ -129,8 +129,12 @@ async function login(username, password) {
  */
 function auth(jwtToken) {
   try {
-    return jwt.verify(jwtToken, process.env.jwtSecret).includes('Operator');
+      const data = jwt.verify(jwtToken, process.env.jwtSecret);
+      const groups = data.groups;
+      const filtered = groups.filter(group => group === 'Operators');
+      return filtered.length > 0;
   } catch (e) {
+      console.log(e);
     return false;
   }
 }

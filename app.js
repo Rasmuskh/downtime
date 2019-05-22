@@ -6,9 +6,8 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const config = require('./config/database');
-
-mongoose.connect(config.database);
+require('dotenv').config()
+mongoose.connect(process.env.DBURL || "mongodb://localhost/maxivkb");
 let db = mongoose.connection;
 
 
