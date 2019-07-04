@@ -2,13 +2,46 @@ extends layout
 block content
   //link(rel='stylesheet' href='/public/css/style.css', type='text/css')
 
+  script.
+      function authenticate(username, password) {
+        fetch("/user/login", 
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username, password}),
+         })
+        .then(response => response.json())
+        .then(jsonData => {
+          document.cookie = "authenticated=" + jsonData.authenticated + ";path=/";
+          document.cookie = "jwtToken=" + jsonData.jwtToken + ";path=/";
+          if (jsonData.authenticated){
+            window.alert("Authentication successful!")
+            //-redirect somwhere
+          }else{
+            window.alert("Authentication failed!")
+          }
+          
+        })
+        .catch(error => {
+          console.error(error);
+          window.alert("Authentication failed!")
+          }
+        );
+      }
   h2(align='center') Login
-  form(method='POST', action='/user/login')
+  form(method='POST', action='return false' onsubmit="return false")
     #form-group
       label Username:
-      input.form-control(name='username', type='text')
+      input.form-control(name='username', type='text', id='user')
     #form-group
-      label Pasword:
-      input.form-control(name='password', type='password')
+      label Password:
+      input.form-control(name='password', type='password', id='pw')
     br
-    input.btn.btn-primary(type='submit', value='Login')
+    input.btn.btn-primary(type='submit', value='Login' onclick="authenticate(document.getElementById('user').value, document.getElementById('pw').value)")
+
+
+  //-1) make api call with username and password
+  //-2) store boolean value as well as jwt token as a cookie
+  //-3) redirect user to some other page, or show them a error message if htey were not autheticated

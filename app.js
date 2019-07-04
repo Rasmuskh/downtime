@@ -6,7 +6,9 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const cookieParser = require("cookie-parser");
 require('dotenv').config()
+const jwt = require("jsonwebtoken");
 mongoose.connect(process.env.DBURL || "mongodb://localhost/maxivkb");
 let db = mongoose.connection;
 
@@ -38,6 +40,8 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 // Set Public Folder
 app.use(express.static(path.join(__dirname,'public')));
@@ -207,6 +211,15 @@ app.delete('/schedule/edit/:id', ensureAuthenticated, function(req, res){
 //====================================
 //Add About Route
 app.get('/about',function(req, res){
+    //example of verifying the jwt token. obivously should't be place in /about, just shown as an example
+    const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
+    const groups = verified.groups;
+    const filtered = groups.filter(group => group === "Operators");
+    if (filtered.length > 0){
+        console.log("This user is an Operator")
+    }else{
+        console.log("This user is NOT an Operator")
+    }
     res.render('about', {
         title: 'About',
     });
@@ -214,12 +227,20 @@ app.get('/about',function(req, res){
 
 
 function ensureAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
+    try{
+        const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
         return next();
-    } else {
+    }catch(err){
         req.flash('danger', 'Please login');
         res.redirect('/user/login');
     }
+    
+    // if(req.isAuthenticated()){
+    //     return next();
+    // } else {
+    //     req.flash('danger', 'Please login');
+    //     res.redirect('/user/login');
+    // }
 }
 
 //====================================
