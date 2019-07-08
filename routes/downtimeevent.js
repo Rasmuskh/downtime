@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 // Bring in downtimeevent model
 let Downtimeevent = require('../models/downtimeevents');
@@ -120,12 +121,15 @@ router.post('/archive/:id', ensureAuthenticated, function(req, res){
 });
 
 function ensureAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
+    try{
+        const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
         return next();
-    } else {
+    }catch(err){
         req.flash('danger', 'Please login');
         res.redirect('/user/login');
     }
 }
+
+
 
 module.exports = router;

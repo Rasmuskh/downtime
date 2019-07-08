@@ -35,29 +35,31 @@ html
         color: white;
         text-decoration: none;
         }
+      
+      script.
+        //Need to be updated so that ordering of cookies does not matter
+        //Also this function returns undefined when the page is being loaded...
+        //That does not work.
+        var isAuthenticated = document.cookie.split(';')[0].split('=')[1]=='true'
+        console.log(isAuthenticated)
       div
         ul
           li
             a(href='/') Downtime Index
-          if user
-            li
-              a(href='/schedule') Schedule
-            li
-              a(href='/downtimeevent/submit') Submit downtime
-          if user
-            li
-              a(href='/user/logout') Logout
-          else
-            //li
-            //  a(href='/user/register') Register
-            li
-              a(href='/user/login') Login
-
           li
             a(href='/about') About
+          -console.log(isAuthenticated)
+          //if true
+          li
+            a(href='/schedule') Schedule
+          li
+            a(href='/downtimeevent/submit') Submit downtime
+          li
+            a(href='/user/logout') Logout
+          //else
+          li
+            a(href='/user/login') Login
       div(style='padding:5px;margin-top:0px;background-color:#66ccff;height:0px;')
-
-
 
     .container
       br
@@ -71,3 +73,4 @@ html
       hr
       footer
         p MAX IV operations group
+

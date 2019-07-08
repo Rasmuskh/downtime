@@ -226,6 +226,7 @@ app.get('/about',function(req, res){
 });
 
 
+
 function ensureAuthenticated(req, res, next){
     try{
         const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
