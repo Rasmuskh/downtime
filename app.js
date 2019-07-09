@@ -212,14 +212,6 @@ app.delete('/schedule/edit/:id', ensureAuthenticated, function(req, res){
 //Add About Route
 app.get('/about',function(req, res){
     //example of verifying the jwt token. obivously should't be place in /about, just shown as an example
-    const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
-    const groups = verified.groups;
-    const filtered = groups.filter(group => group === "Operators");
-    if (filtered.length > 0){
-        console.log("This user is an Operator")
-    }else{
-        console.log("This user is NOT an Operator")
-    }
     res.render('about', {
         title: 'About',
     });

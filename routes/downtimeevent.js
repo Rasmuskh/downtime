@@ -123,7 +123,12 @@ router.post('/archive/:id', ensureAuthenticated, function(req, res){
 function ensureAuthenticated(req, res, next){
     try{
         const verified = jwt.verify(req.cookies["jwtToken"], process.env.jwtSecret);
-        return next();
+        const groups = verified.groups;
+        const filtered = groups.filter(group => group === "Operators");
+        if (filtered.length > 0){
+            console.log("This user is an Operator")
+            return next();
+        }
     }catch(err){
         req.flash('danger', 'Please login');
         res.redirect('/user/login');
