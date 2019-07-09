@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const dotenv = require("dotenv");
 
+
+
+
 dotenv.config();
 
 // Bring in user  model
@@ -18,17 +21,18 @@ router.get("/login", function(req, res) {
 
 //Login Process
 router.post("/login", function(req, res, next) {
-  login(req.body.username, req.body.password).then(result => {
-    res.send(result);
-  });
+    login(req.body.username, req.body.password).then(result => {
+        req.flash('success', 'You have logged in!');
+        res.send(result);
+    });
 });
 
 //Logout
 router.get("/logout", function(req, res) {
     res.cookie('jwtToken',{expires: Date.now()});
     res.cookie('authenticated',{value: false});
-    req.flash("succes", "You have logged out");
-    res.redirect("/user/login");
+    req.flash('success', 'You have logged out!');
+    res.redirect("/");
 });
 
 

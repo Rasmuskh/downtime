@@ -36,29 +36,35 @@ html
         text-decoration: none;
         }
       
-      script.
-        //Need to be updated so that ordering of cookies does not matter
-        //Also this function returns undefined when the page is being loaded...
-        //That does not work.
-        var isAuthenticated = document.cookie.split(';')[0].split('=')[1]=='true'
-        console.log(isAuthenticated)
+
+
       div
+        script.
+          //Need to be updated so that ordering of cookies does not matter
+          //Also this function returns undefined when the page is being loaded...
+          //That does not work.
+          //sAuthenticated =JSON.stringify(document.cookie.split(';')[0].split('=')[1]=='true')
+          //console.log('1:::'+isAuthenticated)
+
+
         ul
+          li
+            span#isOK
           li
             a(href='/') Downtime Index
           li
             a(href='/about') About
-          -console.log(isAuthenticated)
-          //if true
-          li
-            a(href='/schedule') Schedule
-          li
-            a(href='/downtimeevent/submit') Submit downtime
-          li
-            a(href='/user/logout') Logout
-          //else
-          li
-            a(href='/user/login') Login
+          if 1
+            //(isAuthenticated)
+            li
+              a(href='/schedule') Schedule
+            li
+              a(href='/downtimeevent/submit') Submit downtime
+            li
+              a(href='/user/logout') Logout
+              //else
+            li
+              a(href='/user/login') Login
       div(style='padding:5px;margin-top:0px;background-color:#66ccff;height:0px;')
 
     .container

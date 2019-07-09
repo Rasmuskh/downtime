@@ -1,6 +1,5 @@
 extends layout
 block content
-  //link(rel='stylesheet' href='/public/css/style.css', type='text/css')
 
   script.
       function authenticate(username, password) {
@@ -17,8 +16,7 @@ block content
           document.cookie = "authenticated=" + jsonData.authenticated + ";path=/";
           document.cookie = "jwtToken=" + jsonData.jwtToken + ";path=/";
           if (jsonData.authenticated){
-            window.alert("Authentication successful!")
-            //-redirect somwhere
+            window.location.href = "/";
           }else{
             window.alert("Authentication failed!")
           }
