@@ -97,7 +97,7 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res){
         if(err){
             console.log(err);
         } else{
-            req.flash('success', 'Downtimeevent updated');
+            req.flash('warning', 'Downtimeevent updated');
             res.redirect('/');
         }
     });
