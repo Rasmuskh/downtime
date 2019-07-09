@@ -20,9 +20,8 @@ router.get("/login", function(req, res) {
 });
 
 //Login Process
-router.post("/login", function(req, res, next) {
-    login(req.body.username, req.body.password).then(result => {
-        req.flash('success', 'You have logged in!');
+router.post("/login", function(req, res) {
+    login(req, res, req.body.username, req.body.password).then(result => {
         res.send(result);
     });
 });
@@ -48,7 +47,7 @@ router.get("/logout", function(req, res) {
  * @param {string} username
  * @param {string} password
  */
-async function login(username, password) {
+async function login(req, res, username, password) {
   try {
     const res = await axios.post("https://jwt-auth.maxiv.lu.se/v1/login", {
       username: username,
@@ -57,6 +56,7 @@ async function login(username, password) {
     jwtDecoded = jwt.verify(res.data.jwt, process.env.jwtSecret);
     const groups = jwtDecoded.groups;
     const filtered = groups.filter(group => group === "Operators");
+    req.flash('success', 'You have logged in!');
     return {authenticated: filtered.length > 0, jwtToken: res.data.jwt};
   } catch (err) {
     return {
