@@ -211,7 +211,6 @@ app.delete('/schedule/edit/:id', ensureAuthenticated, function(req, res){
 //====================================
 //Add About Route
 app.get('/about',function(req, res){
-    //example of verifying the jwt token. obivously should't be place in /about, just shown as an example
     res.render('about', {
         title: 'About',
     });

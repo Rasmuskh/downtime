@@ -1,12 +1,14 @@
 doctype html
 html
+  script(src='/bower_components/jquery/dist/jquery.js')
+
+
 
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=yes')
     title DowntimeApp
     link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css', type='text/css')
-
 
   .container
     head
@@ -37,32 +39,22 @@ html
         }
       
 
+        
 
       div
-        script.
-          //Need to be updated so that ordering of cookies does not matter
-          //Also this function returns undefined when the page is being loaded...
-          //That does not work.
-          //sAuthenticated =JSON.stringify(document.cookie.split(';')[0].split('=')[1]=='true')
-          //console.log('1:::'+isAuthenticated)
-
-
         ul
-          li
-            span#isOK
           li
             a(href='/') Downtime Index
           li
             a(href='/about') About
-          if 1
-            //(isAuthenticated)
+          .ifLoggedIn
             li
               a(href='/schedule') Schedule
             li
               a(href='/downtimeevent/submit') Submit downtime
             li
               a(href='/user/logout') Logout
-              //else
+          .ifLoggedOut
             li
               a(href='/user/login') Login
       div(style='padding:5px;margin-top:0px;background-color:#66ccff;height:0px;')
@@ -80,3 +72,32 @@ html
       footer
         p MAX IV operations group
 
+script.
+  //from https://www.w3schools.com/js/js_cookies.asp
+  function getCookie(cname) {
+  var name= cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+  };
+  $(document).ready(function(){
+  if (getCookie('authenticated') != 'true')
+    {
+    $('.ifLoggedIn').hide();
+    }
+  });
+  $(document).ready(function(){
+  if (getCookie('authenticated') == 'true')
+    {
+    $('.ifLoggedOut').hide();
+    }
+  });
