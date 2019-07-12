@@ -36,8 +36,9 @@ block content
 
 
     hr
-    a.btn.btn-warning(href='/downtimeevent/edit/'+downtimeevent._id) Edit
-    a.btn.btn-danger(href='/downtimeevent/archive/'+downtimeevent._id) Archive
+    .ifLoggedIn
+      a.btn.btn-warning(href='/downtimeevent/edit/'+downtimeevent._id) Edit
+      a.btn.btn-danger(href='/downtimeevent/archive/'+downtimeevent._id) Archive
 
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
