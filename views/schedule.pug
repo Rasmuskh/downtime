@@ -1,16 +1,47 @@
 extends layout
 
 block content
-  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
-  .container
+  body
+    h2(align='center') Schedule
 
+  link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+
+  style.
+    .new_button{
+    cursor:pointer;
+    background-color:#2ECC71;
+    color: white;
+    border: 5px solid #66ccff;
+    border-radius: 15%;
+    height:60px;width:120px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    -webkit-transition-duration: 0.75s; /* safari */
+    transition-duration: 0.75s;
+    }
+  style.
+    .edit_button{
+    cursor:pointer;
+    background-color:#ffb84d;
+    color: white;
+    border: 5px solid #66ccff;
+    border-radius: 10%;
+    height:60px;width:100px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    -webkit-transition-duration: 0.75s; /* safari */
+    transition-duration: 0.75s;
+    }
+  button.new_button(type='button', onclick="window.location.href='/schedule/submit'")#New New entry
+
+  br
+  br
 
   tbody
     table#weektable.display(style='width:100%').compact
       thead
-        tr
-          h3
-            center Schedule Table
           th
             h4
               b Date
@@ -25,36 +56,7 @@ block content
             td #{val.R1plan}
             td #{val.R3plan}
             td #{val.SPFplan}
-    br
-    style.
-      .new_button{
-      cursor:pointer;
-      background-color:#2ECC71;
-      color: white;
-      border: 5px solid #66ccff;
-      border-radius: 10%;
-      height:60px;width:100px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-      -webkit-transition-duration: 0.75s; /* safari */
-      transition-duration: 0.75s;
-      }
-    style.
-      .edit_button{
-      cursor:pointer;
-      background-color:#ffb84d;
-      color: white;
-      border: 5px solid #66ccff;
-      border-radius: 10%;
-      height:60px;width:100px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-      -webkit-transition-duration: 0.75s; /* safari */
-      transition-duration: 0.75s;
-      }
-    button.new_button(type='button', onclick="window.location.href='/schedule/submit'")#New New
+
     //button.edit_button(value=1,)#I_button Edit
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
@@ -62,8 +64,8 @@ block content
     $(document).ready( function () {
     $('#weektable').DataTable({
     "order": [[ 0, "desc" ]],
-    "bFilter": false,
-    "bInfo" : false,
-    "bPaginate": false,
+    "bFilter": true,
+    "bInfo" : true,
+    "bPaginate": true,
     });
     } );

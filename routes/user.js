@@ -56,7 +56,9 @@ async function login(req, res, username, password) {
     jwtDecoded = jwt.verify(res.data.jwt, process.env.jwtSecret);
     const groups = jwtDecoded.groups;
     const filtered = groups.filter(group => group === "Operators");
-    req.flash('success', 'You have logged in!');
+    if (filtered.length > 0){
+        req.flash('success', 'You have logged in!');   
+    }
     return {authenticated: filtered.length > 0, jwtToken: res.data.jwt};
   } catch (err) {
     return {
