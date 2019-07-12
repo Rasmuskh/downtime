@@ -5,7 +5,6 @@ const bodyParser=require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
-const passport = require('passport');
 const cookieParser = require("cookie-parser");
 require('dotenv').config()
 const jwt = require("jsonwebtoken");
@@ -77,12 +76,6 @@ app.use(expressValidator({
         };
     }
 }));
-
-// Passport Config
-require('./config/passport')(passport);
-//passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.get('*', function(req, res, next){
     res.locals.user = req.user || null;

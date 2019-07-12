@@ -126,7 +126,6 @@ function ensureAuthenticated(req, res, next){
         const groups = verified.groups;
         const filtered = groups.filter(group => group === "Operators");
         if (filtered.length > 0){
-            console.log("This user is an Operator")
             return next();
         }
     }catch(err){

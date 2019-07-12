@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const dotenv = require("dotenv");
@@ -12,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // Bring in user  model
-let User = require("../models/users");
+// let User = require("../models/users");
 
 //Login form
 router.get("/login", function(req, res) {
