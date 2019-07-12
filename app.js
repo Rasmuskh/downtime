@@ -92,7 +92,7 @@ app.get('*', function(req, res, next){
 
 
 //====================================
-// Home Route
+// Index Route
 app.get('/',function(req, res){
     //Make downtime collection accessible
     Downtimeevent.find({}, function(err,downtimeevents){
