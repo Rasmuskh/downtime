@@ -37,9 +37,7 @@ html
         color: white;
         text-decoration: none;
         }
-      
 
-        
 
       div
         ul
@@ -47,6 +45,7 @@ html
             a(href='/') Downtime Index
           li
             a(href='/about') About
+          //The following list items should be hidden unless user is logged in
           .ifLoggedIn
             li
               a(href='/schedule') Schedule
@@ -54,6 +53,7 @@ html
               a(href='/downtimeevent/submit') Submit downtime
             li
               a(href='/user/logout') Logout
+          //The following list item should be hidden unless user is NOT logged in
           .ifLoggedOut
             li
               a(href='/user/login') Login
@@ -89,12 +89,18 @@ script.
   }
   return "";
   };
+
+  //Function for hiding stuff relevant only to logged in users.
+  //If you are not logged in, then you should not see the schedule, submit or logout button.
   $(document).ready(function(){
   if (getCookie('authenticated') != 'true')
     {
     $('.ifLoggedIn').hide();
     }
   });
+
+  //Function for hiding stuff which is only relevant before you login
+  //You don't need a login button once you already are logged in, so we hide that button
   $(document).ready(function(){
   if (getCookie('authenticated') == 'true')
     {
