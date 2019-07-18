@@ -26,8 +26,10 @@ router.post("/login", function(req, res) {
 
 //Logout
 router.get("/logout", function(req, res) {
-    res.cookie('jwtToken',{expires: Date.now()});
-    res.cookie('authenticated',{value: false});
+    //Make cookie expire by setting expiration date in the past
+    //https://expressjs.com/en/api.html#res.cookie
+    res.cookie('jwtToken', '1', {expires: new Date(Date.now()-10^8)});
+    res.cookie('authenticated', 'false');
     req.flash('success', 'You have logged out!');
     res.redirect("/");
 });
