@@ -59,6 +59,11 @@ block content
     script.
       $(document).ready( function () {
       $('#archiveTable').DataTable({
+      "order": [[ 3, "desc" ]],
+      "columnDefs": [
+      { "targets": [ 0, 1, 2 ], "visible": false},
+      { "searchable": false, "targets": 3 }
+      ]
       });
       } );
 
