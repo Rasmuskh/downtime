@@ -36,7 +36,17 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res){
 router.get('/archive/:id', ensureAuthenticated, function(req, res){
     Downtimeevent.findById(req.params.id, function(err, downtimeevent){
         res.render('archive_downtimeevent',{
-            title:'Archive Downtimeevent',
+            title:'Archive Downtime event',
+            downtimeevent:downtimeevent  
+        });
+    });
+});
+
+// Resurect downtimeevents route
+router.get('/resurrect/:id', ensureAuthenticated, function(req, res){
+    Downtimeevent.findById(req.params.id, function(err, downtimeevent){
+        res.render('resurrect_downtimeevent',{
+            title:'Resurrect Downtime event',
             downtimeevent:downtimeevent  
         });
     });
@@ -97,7 +107,7 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res){
         if(err){
             console.log(err);
         } else{
-            req.flash('warning', 'Downtimeevent updated');
+            req.flash('warning', 'Downtime event updated');
             res.redirect('/');
         }
     });
@@ -114,7 +124,24 @@ router.post('/archive/:id', ensureAuthenticated, function(req, res){
         if(err){
             console.log(err);
         } else{
-            req.flash('danger', 'Downtimeevent archived');
+            req.flash('danger', 'Downtime event archived');
+            res.redirect('/');
+        }
+    });
+});
+
+// archive Submissions POST Route
+router.post('/resurrect/:id', ensureAuthenticated, function(req, res){
+    let downtimeevent  = {}
+    downtimeevent.archived = req.body.archived;
+
+    let query ={_id:req.params.id};
+
+    Downtimeevent.update(query, downtimeevent, function(err){
+        if(err){
+            console.log(err);
+        } else{
+            req.flash('danger', 'Downtime event resurrected');
             res.redirect('/');
         }
     });

@@ -1,0 +1,14 @@
+extends layout
+
+
+block content
+  .container
+    h2(align='center') #{title}
+    form(method='POST',action='/downtimeevent/resurrect/'+downtimeevent.id, onsubmit="return confirm('Do you really wish to resurrect this downtime event?');")
+      #form-group
+        input(type='checkbox', name='archived', required = true, value=0)
+        |  Resurrect downtime event
+        br
+        br
+        a.btn.btn-primary(href='/') Cancel
+        input.btn.btn-danger(type='submit',value='Confirm')
