@@ -18,13 +18,13 @@ block content
           if (jsonData.authenticated){
             window.location.href = "/";
           }else{
-            window.alert("Authentication failed!")
+            window.alert("Login failed!")
           }
           
         })
         .catch(error => {
           console.error(error);
-          window.alert("Authentication failed!")
+          window.alert("Login failed!")
           }
         );
       }
