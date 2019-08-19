@@ -54,7 +54,7 @@ async function login(req, res, username, password) {
       password: password
     });
     jwtDecoded = jwt.verify(res.data.jwt, process.env.jwtSecret);
-    //console.log(jwtDecoded);
+    console.log(jwtDecoded);
     const groups = jwtDecoded.groups;
     const filtered = groups.filter(group => group === "Operators");
     if (filtered.length > 0){

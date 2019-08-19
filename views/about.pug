@@ -10,12 +10,12 @@ block content
         p This application is for logging downtime events to a database as well as for viewing and calculating statistics regarding those events.
         b Downtime Index:
         p This page allows you to view a table of all downtime events as well as a pie chart and some statistics. The events, which are shown in the table and plotted in the chart, can be filtered by machine or by event type via the buttons on the top left. They can also be filtered by range for the parameters date, time and duration.
-        p The following statistics are calculated for R1, R3 and SPF, for the date interval chosen by the user: Planned delivery (hours), total downtime (hours), uptime (%), Mean Time To Repair (hours), Mean Time To Failure (hours), Mean Time Between Fauilures (hours). Note that the statistics only can be filtered by date.
+
+        p The following statistics are calculated for R1, R3 and SPF, for the date interval chosen by the user: Planned delivery (hours), total downtime (hours), uptime (%), Mean Time To Repair (hours), Mean Time To Failure (hours), Mean Time Between Fauilures (hours). Note that the statistics only can be filtered by date. When downtime makes up a small fraction of delivery time, then MTTF will approach MTBF. These concepts are illustrated in the figure.
         .image-block
           img(src='images/stats.jpg' , alt='some image', width='100%')
-        h3 Statistics
-        p The database can also be filtered by keyword via the searchbar above the table. The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear somewhere the description.
-        p Each event can be opened in a detailed mode with description, from where they can be edited or deleted.
+  
+        p The database can also be filtered by keyword via the searchbar above the table. The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear somewhere in the description. Additionally each event can be opened in a detailed mode with description, from where they can be edited or deleted.
         b Restricted functionality
         p Operators can log in with their MAXIV ID and password. When logged in it is possible to submit new downtime events and edit/correct existing events. It is not possible to delete existing events, but they can be #[a(href="/archive") archived]. Archived events are kept in the database but are flagged. They are not shown in the downtime index and are not used when calculating statistics.
 
@@ -56,7 +56,7 @@ block content
                 tr
                   th I:
                   td Injector
-                  td When problems with the linac prevents delivery to SPF or prevents top-up to rings and current falls below agrred minimum delivery current, R1 or R3 (Uually 90% of planned).
+                  td When problems with the linac prevents delivery to SPF or prevents top-up to rings and current falls below agrred minimum delivery current, R1 or R3.
                 tr
                   th ID:
                   td Insertion Devices
