@@ -6,125 +6,90 @@ block content
     body
     h2(align='center') About
     center
-      div(style='width: 750px', align='left')
+      div(style='width: 100%', align='left')
         p This application is for logging downtime events to a database as well as for viewing and calculating statistics regarding those events.
         b Downtime Index:
-        p This page allows you to view a table of all downtime events as well as a pie chart and some statistics. The events, which are shown in the table and plotted in the chart, can be filtered by machine or by event type via the buttons on the top left. They can also be filtered by range for the parameters date, time and duration.
-
-        p The following statistics are calculated for R1, R3 and SPF, for the date interval chosen by the user: Planned delivery (hours), total downtime (hours), uptime (%), Mean Time To Repair (hours), Mean Time To Failure (hours), Mean Time Between Fauilures (hours). Note that the statistics only can be filtered by date. When downtime makes up a small fraction of delivery time, then MTTF will approach MTBF. These concepts are illustrated in the figure.
+        p This page allows you to view a table of all downtime events as well as a pie chart and some statistics. The events, which are shown in the table and plotted in the chart, can be filtered by machine or by event type via the buttons on the top left. They can also be filtered by range for the parameters date, time and duration. The following statistics are calculated for R1, R3 and SPF, for the date interval chosen by the user: Planned delivery (hours), total downtime (hours), uptime (%), Mean Time To Repair (hours), Mean Time To Failure (hours), Mean Time Between Fauilures (hours). Note that the statistics only can be filtered by date. When downtime makes up a small fraction of delivery time, then MTTF will approach MTBF. These concepts are illustrated in the figure.
         .image-block
           img(src='images/stats.jpg' , alt='some image', width='100%')
   
-        p The database can also be filtered by keyword via the searchbar above the table. The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear somewhere in the description. Additionally each event can be opened in a detailed mode with description, from where they can be edited or deleted.
+        p The database can also be filtered by keyword via the searchbar above the table. The input in the searchbar is not treated as a single string, but as a number of strings seperated by whitespace. This means you for example can search "BI 2018-11 dump alarm 311", if you want events in November 2018 related to beamline instabilities for which the the terms dump, alarm and 311 appear somewhere in the description. Additionally each event can be opened in a detailed mode with description.
         b Restricted functionality
-        p Operators can log in with their MAXIV ID and password. When logged in it is possible to submit new downtime events and edit/correct existing events. It is not possible to delete existing events, but they can be #[a(href="/archive") archived]. Archived events are kept in the database but are flagged. They are not shown in the downtime index and are not used when calculating statistics.
+        p Operators can log in with their MAXIV ID and password. When logged in it is possible to submit new downtime events and edit/correct existing events. It is not possible to delete existing events, but they can be #[a(href="/archive") archived]. Archived events are kept in the database but are not shown in the downtime index and are not used when calculating statistics.
 
         // list of event codes
-        b Event codes: 
-        p  Events are labelled with the following codes:
+
+        center
+          b Event codes:
           .container
             table#code_table.display(style='width:100%')
               thead
-                th Event code
-                th 
-                th Comment
+                th
+                th
+                th
+                th
               tbody
                 tr
                   th B:
                   td Beamlines
-                  td For cases were something on the beamline side caused the beam to be dumped.
-                tr
                   th BI:
                   td Beam instability
-                  td For example when the beam goes unstable and causes a vacuum spike, which leads to a beamdump.
                 tr
                   th CT:
                   td Controls
-                  td Control system related. For example when Landau autotuning drifts off or when a feedback device misbehaves and causes a beam dump.
-                tr
                   th DIA:
                   td Diagnostics
-                  td
                 tr
                   th HE:
                   td Human error 
-                  td
-                tr
                   th HLS
                   td High level software
-                  td High level software is the name of a piece of software used for SPF delivery
                 tr
                   th I:
                   td Injector
-                  td When problems with the linac prevents delivery to SPF or prevents top-up to rings and current falls below agrred minimum delivery current, R1 or R3.
-                tr
                   th ID:
                   td Insertion Devices
                   td
                 tr
                   th INF:
                   td Infrastructure
-                  td
-                tr
                   th LAS
                   td Laser
-                  td Downtime due to problems with the photogun
                 tr
                   th MAG:
                   td Magnets
-                  td Related to magnets and their power supplies.
-                tr
                   th MML:
                   td MATLAB middle layer
-                  td
                 tr
                   th MPS:
                   td Machine protection system
-                  td
-                tr
                   th NET:
                   td Network
-                  td
                 tr
                   th OI:
                   td Orbit interlock
-                  td
-                tr
                   th OT:
                   td Other
-                  td For events that don't fit anywhere else. When using this code think about if a new event code might be useful.
                 tr
                   th PLC:
                   td Programmable logic controller
-                  td
-                tr
                   th PSS
                   td Personnel safety system
-                  td
                 tr
                   th RF
                   td Radio Frequency
-                  td Related to rf cavities
-                tr
                   th UI
                   td Unscheduled injection
-                  td Used when SPF delivery is interupted by prolonged injections to the rings. For example if a ring is dumped and requires to be injected from 0 mA to delivery current.
                 tr
                   th UT
                   td Unscheduled Trimming
-                  td Used when beam quality of the beam to the SPF is poor and requires unplanned trimming
-                tr
                   th VAC
                   td Vacuum
-                  td 
                 tr
                   th WAT
                   td Water
-                  td Cooling related events
-                tr
                   th WD
                   td Watchdog
-                  td
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
   script.
