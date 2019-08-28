@@ -38,8 +38,6 @@ block content
     }
   button.new_button(type='button', onclick="window.location.href='/schedule/submit'")#New New entry
 
-  br
-  br
   //##############################################
   //Filter by range table
   //##############################################
@@ -50,17 +48,17 @@ block content
     border-spacing: 10px;
     }
   //the filter table
-  table(frame='above',style='width:100%')#filtertable
-    tbody
-      tr
-        td Min week number:
-        td
-          input#minWeek(name='minWeek', type='number', value=0, min=0, max=53, step=1)
+  center
+    table(frame='above',style='width:60%')#filtertable
+      tbody
+        tr
+          td From week
+          td
+            input#minWeek(name='minWeek', type='number', value=0, min=0, max=53, step=1)
         
-        td Max week number:
-        td
-          input#maxWeek(name='maxWeek', type='number',value=53, min=0, max=53, step=1)
-        td Max date:
+          td to week
+          td
+            input#maxWeek(name='maxWeek', type='number',value=53, min=0, max=53, step=1)
 
   br
   //The schedule arranged in a table
