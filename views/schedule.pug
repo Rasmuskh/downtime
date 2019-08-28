@@ -54,11 +54,11 @@ block content
         tr
           td From week
           td
-            input#minWeek(name='minWeek', type='number', value=0, min=0, max=53, step=1)
+            input#minWeek(name='minWeek', type='number', value=0, min=1, max=53, step=1)
         
           td to week
           td
-            input#maxWeek(name='maxWeek', type='number',value=53, min=0, max=53, step=1)
+            input#maxWeek(name='maxWeek', type='number',value=53, min=1, max=53, step=1)
 
   br
   //The schedule arranged in a table
@@ -105,7 +105,7 @@ block content
     } );
   script.
     // Event listener to the range filtering inputs to redraw on input
-    $('#minWeek, maxWeek').keyup( function() {
+    $('#minWeek, #maxWeek').keyup( function() {
     $('#scheduletable').DataTable().draw();
     } );
   script.
