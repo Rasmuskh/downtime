@@ -375,7 +375,8 @@ block content
             input#mindur(name='mindur', type='number', value=0, min=0, step=1)
           td Min date:
           td
-            input#mindate(name='mindate', type='date', value='2019-01-01', oninput='pr()')
+            - var min_d = (new Date().getFullYear())+"-01-01"
+            input#mindate(name='mindate', type='date', value=min_d, oninput='pr()')
           td Min time:
           td
             input#mintime(name='mintime', type='string', value='00:00')
@@ -385,7 +386,9 @@ block content
             input#maxdur(name='maxdur', type='number',value=999999, min=0, step=1)
           td Max date:
           td
-            input#maxdate(name='maxdate', type='date', value='2099-12-31', oninput='pr()')
+            - var max_d = new Date()
+            - max_d = max_d.getFullYear() + '-' + ('0' + (max_d.getMonth()+1)).slice(-2) + '-'  + ('0' + max_d.getDate()).slice(-2)
+            input#maxdate(name='maxdate', type='date', value=max_d, oninput='pr()')
           td max time
           td
             input#maxtime(name='maxtime', type='string', value='23:59')
