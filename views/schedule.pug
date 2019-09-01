@@ -54,11 +54,17 @@ block content
         tr
           td From week
           td
-            input#minWeek(name='minWeek', type='number', value=0, min=1, max=53, step=1)
+            input#minWeek(name='minWeek', type='number', value=1, min=1, max=53, step=1)
         
           td to week
           td
             input#maxWeek(name='maxWeek', type='number',value=53, min=1, max=53, step=1)
+          //Get current year to use as a default value
+          - var year = new Date()
+          - year = year.getFullYear()
+          td year
+          td
+            input#year_chosen(name='year_chosen', type='number',value=year, min=1, max=9999, step=1)
 
   br
   //The schedule arranged in a table
@@ -69,6 +75,7 @@ block content
             h4
               b Date
           th Week number
+          th Year
           th R1 planned (hours)
           th R3 Planned (hours)
           th SPF planned (hours)
@@ -76,19 +83,21 @@ block content
         each val, index in deliveryplans
           //get week numbers. from stackoverflow:stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
           // Copy date so don't modify original
-          - var d = new Date(val.date)
+          - var d =  new Date(val.date)
           // Set to nearest Thursday: current date + 4 - current day number
           // Make Sunday's day number 7
           - d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
           - var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
           // Calculate full weeks to nearest Thursday
           - var weekNum = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+          - var year = new Date(val.date).getFullYear()
 
           //Populate table
           tr
             td
               a(href="/schedule/edit/"+val._id) <button type="button" style='cursor:pointer;background-color:white;color:#66ccff;border: 3px solid #66ccff;border-radius: 6%;height:32px;width:140px;text-align: center;text-decoration: none;font-size: 14px;font-weight: bold;'>#{val.date}</button>
             td #{weekNum}
+            td #{year}
             td #{val.R1plan}
             td #{val.R3plan}
             td #{val.SPFplan}
@@ -98,6 +107,11 @@ block content
     //Initialize the datatable
     $(document).ready( function () {
     $('#scheduletable').DataTable({
+    "columnDefs": [
+            {
+                "targets": [ 2 ],
+                "visible": false,
+            }],
     "order": [[ 0, "desc" ]],
     "bInfo" : true,
     "bPaginate": true,
@@ -105,7 +119,7 @@ block content
     } );
   script.
     // Event listener to the range filtering inputs to redraw on input
-    $('#minWeek, #maxWeek').keyup( function() {
+    $('#minWeek, #maxWeek, #year_chosen').keyup( function() {
     $('#scheduletable').DataTable().draw();
     } );
   script.
@@ -115,9 +129,10 @@ block content
         //Week Numbers
         var minWeek = parseInt( $('#minWeek').val());
         var maxWeek = parseInt( $('#maxWeek').val());
+        var year_chosen = parseInt( $('#year_chosen').val());
         var week = parseInt( data[1] ) || 0; // use data from the week number column
-
-          if ((minWeek <= week)   && (week <= maxWeek))
+        var year = parseInt( data[2] ) || 0; // use data from the week number column
+          if ((minWeek <= week)   && (week <= maxWeek) && (year==year_chosen))
             {
             return true;
             }
