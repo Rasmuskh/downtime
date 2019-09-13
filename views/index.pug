@@ -496,8 +496,16 @@ block content
     //##############################################
     //datatable and highcharts scripts
     //##############################################
+    //Basic datatables dependencies
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+    //download copy or print filtered datatable
+    script(src='bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')
+    script(src='bower_components/datatables.net-buttons/js/buttons.html5.min.js')
+    //Highcharts dependencies
+    script(src='/bower_components/highcharts/highcharts.js')
+    script(src='/bower_components/highcharts/modules/exporting.js')
+    script(src='/bower_components/highcharts/modules/export-data.js')
     //addition function for datatables
     script.
       jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
@@ -508,20 +516,19 @@ block content
         if ( typeof b === 'string' ) {
             b = b.replace(/[^\d.-]/g, '') * 1;
         }
-
         return a + b;
         }, 0 );
       } );
-    //Highcharts dependencies
-    script(src='/bower_components/highcharts/highcharts.js')
-    script(src='/bower_components/highcharts/modules/exporting.js')
-    script(src='/bower_components/highcharts/modules/export-data.js')
 
     //Initialize datatable and piechart
     script.
       $(document).ready(function() {
         $('#example').DataTable( {
           "order": [[ 3, "desc" ]],
+          dom: 'Bfrtip',
+          buttons: [
+          'csvHtml5', 'copyHtml5'
+          ],
           drawCallback: function () {
             var api = this.api();
             total = api.column( 6, {search:'applied'} ).data().sum()/60
