@@ -5,8 +5,12 @@ block content
     h2(align='center') Schedule
 
   link(rel='stylesheet' href='/bower_components/datatables/media/css/jquery.dataTables.min.css')
+  //Basic datatables dependencies
   script(src='/bower_components/jquery/dist/jquery.js')
   script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+  //download copy or print filtered datatable
+  script(src='bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')
+  script(src='bower_components/datatables.net-buttons/js/buttons.html5.min.js')
 
   style.
     .new_button{
@@ -97,6 +101,10 @@ block content
     //Initialize the datatable
     $(document).ready( function () {
     $('#scheduletable').DataTable({
+    dom: 'fBrtlip',
+          buttons: [
+          'csvHtml5', 'copyHtml5'
+          ],
     "columnDefs": [
             {
                 "targets": [ 2 ],
