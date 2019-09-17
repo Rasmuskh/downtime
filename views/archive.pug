@@ -52,14 +52,22 @@ block content
     <br>
 
     //##############################################
-    //datatable and highcharts scripts
+    //datatable scripts
     //##############################################
+    //Basic datatables dependencies
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/datatables/media/js/jquery.dataTables.min.js')
+    //download copy or print filtered datatable
+    script(src='bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')
+    script(src='bower_components/datatables.net-buttons/js/buttons.html5.min.js')
     script.
       $(document).ready( function () {
       $('#archiveTable').DataTable({
       "order": [[ 3, "desc" ]],
+      dom: 'fBrtlip',
+          buttons: [
+          'csvHtml5', 'copyHtml5'
+          ],
       "columnDefs": [
       { "targets": [ 0, 1, 2 ], "visible": false},
       { "searchable": false, "targets": 3 }
